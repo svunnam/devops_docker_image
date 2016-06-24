@@ -1,3 +1,4 @@
+```
 ########## How To Build Docker Image #############
 ##
 ##  Build image from Dockerfile. docker build -t denny/mytest:v1 --rm=true .
@@ -13,9 +14,10 @@
 ##    docker history denny/mytest:v1
 ##
 ##################################################
+```
 
 Test docker image with chef
-
+```
 echo "cookbook_path '/root/iamdevops/cookbooks'" > /root/client.rb
 echo "{\"run_list\": [\"recipe[jenkins-auth::conf_jenkins]\"], \"os_basic\":{\"enable_firewall\":\"0\"}, \"jenkins_auth\":{\"jobs\":\"BuildRepoCode,UpdateSandbox,UpdateJenkinsItself\"}}" > /root/client.json
 
@@ -24,3 +26,4 @@ cd /root/test/master/iamdevops/cookbooks
 git pull
 
 chef-solo --config /root/client.rb -j /root/client.json
+```
