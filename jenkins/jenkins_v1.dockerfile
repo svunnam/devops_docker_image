@@ -142,8 +142,6 @@ chown jenkins:jenkins /var/lib/jenkins/.bashrc
 
 # TODO: configure jenkins authentication: only login user can do anything
 
-# TODO: update latest bash repo
-
 # remove sensitive data: /var/lib/jenkins/.ssh/git_deploy_key_id_rsa
 
 # empty /var/lib/jenkins/.ssh/known_hosts
@@ -153,7 +151,9 @@ gem sources -a https://ruby.taobao.org/ && \
 gem sources -r https://rubygems.org/ && \
 gem sources -r http://rubygems.org/
 
-# TODO: Update jenkins demo jobs
+# pylint
+apt-get install -y --force-yes python-dev
+pip install pylint
 
 # TODO: install jenkins jobs by chef deployment
 
