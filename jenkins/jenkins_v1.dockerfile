@@ -134,11 +134,11 @@ export LC_ALL="en_US.UTF-8"
 EOF
 chown jenkins:jenkins /var/lib/jenkins/.bashrc
 
-# TODO: install shellcheck for code quality check for bash
+# install shellcheck for code quality check for bash
 # https://github.com/koalaman/shellcheck/issues/439
-# sudo apt-get install cabal-install
-# cabal update
-# cabal install shellcheck
+sudo apt-get install cabal-install
+cabal update
+cabal install shellcheck
 
 # TODO: configure jenkins authentication: only login user can do anything
 
@@ -159,6 +159,8 @@ pip install pylint
 
 # Install Jenkins 2.0
 http://devopscube.com/install-configure-jenkins-2-0/
+
+# TODO: Persist setting of Jenkins Views
 
 # clean up
 rm -rf /tmp/* /var/tmp/*
