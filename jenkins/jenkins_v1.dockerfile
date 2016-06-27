@@ -140,7 +140,9 @@ sudo apt-get install cabal-install
 cabal update
 cabal install shellcheck
 
-# TODO: configure jenkins authentication: only login user can do anything
+# TODO: configure jenkins authentication:
+#       1. only login user can do anything;
+#       2. anonymous users can't do anything
 
 # remove sensitive data: /var/lib/jenkins/.ssh/git_deploy_key_id_rsa
 
