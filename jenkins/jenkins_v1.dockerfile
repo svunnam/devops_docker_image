@@ -127,7 +127,7 @@ export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 EOF
 
-# TODO: change locale
+# change locale
 cat > /var/lib/jenkins/.bashrc <<EOF
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
@@ -153,7 +153,7 @@ gem sources -r http://rubygems.org/
 
 # pylint
 apt-get install -y --force-yes python-dev
-pip install pylint
+pip install pylint flask
 
 # TODO: install jenkins jobs by chef deployment
 
