@@ -17,12 +17,18 @@ MAINTAINER DennyZhang.com <denny@dennyzhang.com>
 ########################################################################################
 # create logstash setting, to parse /var/log/data_report.log
 #    Sample data entry:
-     echo "[11/Jul/2016:08:13:45 +0000] mdm-master diskUsed 117314535" >> /var/log/data_report.log
-     echo "[11/Jul/2016:09:13:45 +0000] mdm-master diskUsed 117314535" >> /var/log/data_report.log
-     echo "[11/Jul/2016:10:13:45 +0000] mdm-master diskUsed 117314535" >> /var/log/data_report.log
+     echo "[11/Jul/2016:14:10:45 +0000] mdm-master CBItemNum 20" >> /var/log/data_report.log
+     echo "[11/Jul/2016:14:13:45 +0000] mdm-master CBItemNum 25" >> /var/log/data_report.log
+     echo "[11/Jul/2016:14:15:45 +0000] mdm-master CBItemNum 50" >> /var/log/data_report.log
 
-     echo "[11/Jul/2016:10:13:45 +0000] staging-index-cf5e90 docsNum 20576163" >> /var/log/data_report.log
-     echo "[11/Jul/2016:10:13:45 +0000] master-index-fd1125e docsNum 43" >> /var/log/data_report.log
+     echo "[11/Jul/2016:14:10:45 +0000] mdm-session CBItemNum 20" >> /var/log/data_report.log
+     echo "[11/Jul/2016:14:13:45 +0000] mdm-session CBItemNum 25" >> /var/log/data_report.log
+     echo "[11/Jul/2016:14:15:45 +0000] mdm-session CBItemNum 50" >> /var/log/data_report.log
+
+     echo "[11/Jul/2016:14:10:45 +0000] staging-index-cf5e90 ESItemNum 52" >> /var/log/data_report.log
+     echo "[11/Jul/2016:14:14:45 +0000] staging-index-cf5e90 ESItemNum 52" >> /var/log/data_report.log
+     echo "[11/Jul/2016:14:10:45 +0000] master-index-fd1125e ESItemNum 43" >> /var/log/data_report.log
+     echo "[11/Jul/2016:14:14:45 +0000] master-index-fd1125e ESItemNum 43" >> /var/log/data_report.log
 #
 rm -rf /etc/logstash/conf.d/*
 cat > /etc/logstash/conf.d/data_report.conf <<EOF
