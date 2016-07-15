@@ -3,7 +3,6 @@
 ##  Install docker utility
 ##  Download docker image: docker pull denny/elk:datareport
 ##  Boot docker container:
-##     container_name="elk-aio"
 ##     docker run -t -d -h mytest --name my-test --privileged -v /root/ -p 5022:22 -p 5601:5601 denny/elk:datareport /usr/sbin/sshd -D
 ##  Start services:
 ##     docker start $container_name
@@ -69,4 +68,8 @@ service logstash restart
 # Inject test data
 
 # Define diagrams and dashboards
+
+# TODO: Update visualization dashboard
+# total: disk occupied by elasticsearch
+# total: disk occupied by couchbase
 ########################################################################################

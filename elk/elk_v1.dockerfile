@@ -11,12 +11,10 @@
 ##
 ##     service elasticsearch start
 ##     service kibana4 start
-##     service nginx start
 ##     service logstash start
 ##
 ##     service elasticsearch status
 ##     service kibana4 status
-##     service nginx status
 ##     service logstash status
 ##
 ##     lsof -i tcp:5601
