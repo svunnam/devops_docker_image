@@ -45,7 +45,7 @@ filter {
             }
        }
        date {
-          match => [ "log_timestamp", "dd/MMM/YYYY:MM:mm:ss Z" ]
+          match => [ "log_timestamp", "dd/MMM/YYYY:hh:mm:ss Z" ]
        }
    }
 }
