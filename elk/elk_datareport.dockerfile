@@ -8,6 +8,10 @@
 ##     docker start $container_name
 ##     docker exec $container_name /opt/logstash/bin/logstash -e 'input { stdin { } } output { elasticsearch { host => localhost } }'
 ##
+## Test:
+##   tail -f /var/log/logstash/logstash.stdout
+##   echo "[28/Jul/2016:01:28:13 +0000] master-index-b74f5a703d5e11e68ac00401f8d88501 ESItemNum 122251" >> /var/log/data_report.log
+##
 ##################################################
 
 FROM denny/elk:v1
@@ -45,7 +49,7 @@ filter {
             }
        }
        date {
-          match => [ "log_timestamp", "dd/MMM/YYYY:hh:mm:ss Z" ]
+          match => [ "log_timestamp", "dd/MMM/YYYY:HH:mm:ss Z" ]
        }
    }
 }
