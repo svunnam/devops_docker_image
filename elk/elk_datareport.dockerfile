@@ -5,8 +5,18 @@
 ##  Boot docker container:
 ##     docker run -t -d -h mytest --name my-test --privileged -v /root/ -p 5022:22 -p 5601:5601 denny/elk:datareport /usr/sbin/sshd -D
 ##  Start services:
-##     docker start $container_name
-##     docker exec $container_name /opt/logstash/bin/logstash -e 'input { stdin { } } output { elasticsearch { host => localhost } }'
+##     service elasticsearch start
+##     service kibana4 start
+##     service logstash start
+##
+##     service elasticsearch status
+##     service kibana4 status
+##     service logstash status
+##
+##     lsof -i tcp:5601
+##     ls -lth /etc/logstash/conf.d
+##     tail -f /var/log/logstash/logstash.stdout
+##
 ##
 ## Test:
 ##   tail -f /var/log/logstash/logstash.stdout
@@ -65,8 +75,8 @@ EOF
 # Restart logstash
 service logstash restart
 
-# wget -O /root/wait_for.sh https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v2/bash/wait_for/wait_for.sh
-# chmod 755 /root/wait_for.sh
+# wget -O /usr/sbin/wait_for.sh https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v2/bash/wait_for/wait_for.sh
+# chmod 755 /usr/sbin/wait_for.sh
 
 # Delete saved diagrams and dashboards
 
