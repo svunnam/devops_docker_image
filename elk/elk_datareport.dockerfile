@@ -72,4 +72,6 @@ service logstash restart
 # TODO: Update visualization dashboard
 # total: disk occupied by elasticsearch
 # total: disk occupied by couchbase
+
+# TODO: opt out numbers for certain tables
 ########################################################################################
