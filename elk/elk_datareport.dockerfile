@@ -65,6 +65,9 @@ EOF
 # Restart logstash
 service logstash restart
 
+# wget -O /root/wait_for.sh https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v2/bash/wait_for/wait_for.sh
+# chmod 755 /root/wait_for.sh
+
 # Delete saved diagrams and dashboards
 
 # Refresh index
