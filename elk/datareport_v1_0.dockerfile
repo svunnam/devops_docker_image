@@ -52,11 +52,11 @@ RUN apt-get -y update && \
 
 # Start services through supervisord
    wget -O /etc/supervisor/conf.d/elasticsearch.conf \
-        https://raw.githubusercontent.com/TOTVS/mdmpublic/master/docker/dockerfile_resource/datareport/elasticsearch.conf && \
+        https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/elasticsearch.conf && \
    wget -O /etc/supervisor/conf.d/kibana.conf \
-        https://raw.githubusercontent.com/TOTVS/mdmpublic/master/docker/dockerfile_resource/datareport/kibana.conf && \
+        https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/kibana.conf && \
    wget -O /etc/supervisor/conf.d/logstash.conf \
-        https://raw.githubusercontent.com/TOTVS/mdmpublic/master/docker/dockerfile_resource/datareport/logstash.conf && \
+        https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/logstash.conf && \
 
 # Shutdown services
 
