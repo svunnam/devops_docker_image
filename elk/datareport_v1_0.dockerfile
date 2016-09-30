@@ -6,13 +6,12 @@
 ##
 ##  /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 ##
-##  Build Image From Dockerfile. docker build -f Dockerfile_datareport_v1_0 -t denny/datareport:v1.0 --rm=true .
+##  Build Image From Dockerfile. docker build -f datareport_v1_0.dockerfile -t denny/datareport:v1.0 --rm=true .
 ##################################################
-# https://hub.docker.com/r/willdurand/elk/~/dockerfile/
+# https://github.com/DennyZhang/devops_docker_image/blob/master/java/java_v1_0.dockerfile
 # https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04
 FROM denny/java:v1.0
 MAINTAINER Denny <denny@dennyzhang.com>
-ARG working_dir=/root/
 
 ARG LOGSTASH_VERSION=2.4.0
 ARG ELASTICSEARCH_VERSION=2.4.1
@@ -26,22 +25,22 @@ RUN apt-get -y update && \
     apt-get install --no-install-recommends -y lsof net-tools vim telnet && \
 
 # Elasticsearch
-    wget -O /opt/elasticsearch-2.4.1.zip https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/2.4.1/elasticsearch-2.4.1.zip && \
-    cd /opt && \unzip elasticsearch-2.4.1.zip && \
-    ln -s /opt/elasticsearch-2.4.1 /opt/elasticsearch && \
+    wget -O /opt/elasticsearch-${ELASTICSEARCH_VERSION}.zip https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/${ELASTICSEARCH_VERSION}/elasticsearch-${ELASTICSEARCH_VERSION}.zip && \
+    cd /opt && \unzip elasticsearch-${ELASTICSEARCH_VERSION}.zip && \
+    ln -s /opt/elasticsearch-${ELASTICSEARCH_VERSION} /opt/elasticsearch && \
     # create elasticsearch data directory
     mkdir /usr/share/elasticsearch/data && \
     chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data && \
 
 # Kibana
-   wget -O /opt/kibana-4.0.1-linux-x64.tar.gz https://download.elastic.co/kibana/kibana/kibana-4.0.1-linux-x64.tar.gz && \
-   cd /opt/ && tar -xf kibana-4.0.1-linux-x64.tar.gz && \
-   ln -s /opt/kibana-4.0.1-linux-x64 /opt/kibana && \
+   wget -O /opt/kibana-${KIBANA_VERSION}-linux-x64.tar.gz https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz && \
+   cd /opt/ && tar -xf kibana-${KIBANA_VERSION}-linux-x64.tar.gz && \
+   ln -s /opt/kibana-${KIBANA_VERSION}-linux-x64 /opt/kibana && \
 
 # Logstash
-   wget -O /opt/logstash-2.4.0.zip https://download.elastic.co/logstash/logstash/logstash-2.4.0.zip && \
-   cd /opt/ && unzip logstash-2.4.0.zip && \
-   ln -s /opt/logstash-2.4.0 /opt/logstash && \
+   wget -O /opt/logstash-${LOGSTASH_VERSION}.zip https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VERSION}.zip && \
+   cd /opt/ && unzip logstash-${LOGSTASH_VERSION}.zip && \
+   ln -s /opt/logstash-${LOGSTASH_VERSION} /opt/logstash && \
 
 # Download logstash conf file
    wget -O /opt/logstash/data_report.conf \
