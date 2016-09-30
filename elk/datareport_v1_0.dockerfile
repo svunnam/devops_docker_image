@@ -39,7 +39,7 @@ RUN apt-get -y update && \
 # Kibana
    wget -O /opt/kibana-${KIBANA_VERSION}-linux-x64.tar.gz https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz && \
    cd /opt/ && tar -xf kibana-${KIBANA_VERSION}-linux-x64.tar.gz && \
-   ln -s /opt/kibana-${KIBANA_VERSION}-linux-x64 /opt/kibana && \
+   ln -s /opt/kibana-${KIBANA_VERSION}-linux-x86_64 /opt/kibana && \
 
 # Logstash
    wget -O /opt/logstash-${LOGSTASH_VERSION}.zip https://download.elastic.co/logstash/logstash/logstash-${LOGSTASH_VERSION}.zip && \
