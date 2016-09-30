@@ -28,6 +28,7 @@ RUN apt-get -y update && \
     wget -O /opt/elasticsearch-${ELASTICSEARCH_VERSION}.zip https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/${ELASTICSEARCH_VERSION}/elasticsearch-${ELASTICSEARCH_VERSION}.zip && \
     cd /opt && \unzip elasticsearch-${ELASTICSEARCH_VERSION}.zip && \
     ln -s /opt/elasticsearch-${ELASTICSEARCH_VERSION} /opt/elasticsearch && \
+    useradd elasticsearch
     # create elasticsearch data directory
     mkdir /opt/elasticsearch/data && \
     chown -R elasticsearch:elasticsearch /opt/elasticsearch/data && \
