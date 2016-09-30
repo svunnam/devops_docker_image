@@ -29,7 +29,7 @@ RUN apt-get -y update && \
     cd /opt && \unzip elasticsearch-${ELASTICSEARCH_VERSION}.zip && \
     ln -s /opt/elasticsearch-${ELASTICSEARCH_VERSION} /opt/elasticsearch && \
     # create elasticsearch data directory
-    mkdir /usr/share/elasticsearch/data && \
+    mkdir /opt/elasticsearch/data && \
     chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data && \
 
 # Kibana
