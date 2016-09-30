@@ -44,12 +44,16 @@ RUN apt-get -y update && \
    ln -s /opt/logstash-2.4.0 /opt/logstash && \
 
 # Download logstash conf file
-   wget -O /etc/supervisor/conf.d/kibana.conf \
-        https://raw.githubusercontent.com/TOTVS/mdmpublic/master/docker/dockerfile_resource/datareport/kibana.conf && \
+   wget -O /opt/logstash/data_report.conf \
+        https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/data_report.conf && \
 
 # Start services through supervisord
+   wget -O /etc/supervisor/conf.d/elasticsearch.conf \
+        https://raw.githubusercontent.com/TOTVS/mdmpublic/master/docker/dockerfile_resource/datareport/elasticsearch.conf && \
    wget -O /etc/supervisor/conf.d/kibana.conf \
         https://raw.githubusercontent.com/TOTVS/mdmpublic/master/docker/dockerfile_resource/datareport/kibana.conf && \
+   wget -O /etc/supervisor/conf.d/logstash.conf \
+        https://raw.githubusercontent.com/TOTVS/mdmpublic/master/docker/dockerfile_resource/datareport/logstash.conf && \
 
 # Shutdown services
 
