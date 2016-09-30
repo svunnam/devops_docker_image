@@ -28,7 +28,7 @@ RUN apt-get -y update && \
     wget -O /opt/elasticsearch-${ELASTICSEARCH_VERSION}.zip https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/${ELASTICSEARCH_VERSION}/elasticsearch-${ELASTICSEARCH_VERSION}.zip && \
     cd /opt && \unzip elasticsearch-${ELASTICSEARCH_VERSION}.zip && \
     ln -s /opt/elasticsearch-${ELASTICSEARCH_VERSION} /opt/elasticsearch && \
-    useradd elasticsearch
+    useradd elasticsearch && \
     # create elasticsearch data directory
     mkdir -p /opt/elasticsearch/data /opt/elasticsearch/plugins && \
     mkdir -p /opt/elasticsearch/logs /opt/elasticsearch/config/scripts /var/run/elasticsearch && \
@@ -65,7 +65,7 @@ RUN apt-get -y update && \
 
 # Verify docker image
    /opt/logstash/bin/logstash --version --version | grep ${LOGSTASH_VERSION} && \
-   /usr/share/elasticsearch/bin/elasticsearch --version | grep ${ELASTICSEARCH_VERSION} && \
+   /opt/elasticsearch/bin/elasticsearch --version | grep ${ELASTICSEARCH_VERSION} && \
    /opt/kibana/bin/kibana --version | grep ${KIBANA_VERSION}
    # TDOO:
    # # start service and check status
