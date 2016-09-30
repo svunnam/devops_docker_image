@@ -30,7 +30,7 @@ RUN apt-get -y update && \
     ln -s /opt/elasticsearch-${ELASTICSEARCH_VERSION} /opt/elasticsearch && \
     # create elasticsearch data directory
     mkdir /opt/elasticsearch/data && \
-    chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data && \
+    chown -R elasticsearch:elasticsearch /opt/elasticsearch/data && \
 
 # Kibana
    wget -O /opt/kibana-${KIBANA_VERSION}-linux-x64.tar.gz https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz && \
