@@ -30,11 +30,14 @@ RUN apt-get -y update && \
     ln -s /opt/elasticsearch-${ELASTICSEARCH_VERSION} /opt/elasticsearch && \
     useradd elasticsearch
     # create elasticsearch data directory
-    mkdir -p /opt/elasticsearch/data /var/run/elasticsearch && \
-    chown -R elasticsearch:elasticsearch /opt/elasticsearch/data /var/run/elasticsearch && \
+    mkdir -p /opt/elasticsearch/data /opt/elasticsearch/plugins && \
+    mkdir -p /opt/elasticsearch/logs /opt/elasticsearch/config/scripts /var/run/elasticsearch && \
+    chown -R elasticsearch:elasticsearch /opt/elasticsearch/data /opt/elasticsearch/plugins && \
+    chown -R elasticsearch:elasticsearch /opt/elasticsearch/logs /opt/elasticsearch/config/scripts && \
+    chown -R elasticsearch:elasticsearch /var/run/elasticsearch && \
 
 # Kibana
-   wget -O /opt/kibana-${KIBANA_VERSION}-linux-x64.tar.gz https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x64.tar.gz && \
+   wget -O /opt/kibana-${KIBANA_VERSION}-linux-x64.tar.gz https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz && \
    cd /opt/ && tar -xf kibana-${KIBANA_VERSION}-linux-x64.tar.gz && \
    ln -s /opt/kibana-${KIBANA_VERSION}-linux-x64 /opt/kibana && \
 
