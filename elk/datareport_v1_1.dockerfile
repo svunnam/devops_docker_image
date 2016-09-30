@@ -2,8 +2,11 @@
 ##
 ##  Install docker utility
 ##  Download docker image: docker pull denny/datareport:v1.1
-##  Start container: docker run -t -P -d --name my-test denny/datareport:v1.1 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
+##  Start container:
+##    docker run -t -P -d --name my-test denny/datareport:v1.1 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
+##    docker run -t -P -d --name my-test denny/datareport:v1.1 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 ##
+##  curl http://localhost:9200/_cat/indices?v
 ##  /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 ##
 ##  Build Image From Dockerfile. docker build -f datareport_v1_1.dockerfile -t denny/datareport:v1.1 --rm=true .
@@ -17,6 +20,16 @@ RUN apt-get -y update && \
 
 # Clean up to make docker image smaller
    apt-get clean && \
+
+# TODO: remove this. update file
+   wget -O /opt/logstash/data_report.conf \
+        https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/data_report.conf && \
+   wget -O /etc/supervisor/conf.d/elasticsearch.conf \
+        https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/elasticsearch.conf && \
+   wget -O /etc/supervisor/conf.d/kibana.conf \
+        https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/kibana.conf && \
+   wget -O /etc/supervisor/conf.d/logstash.conf \
+        https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/logstash.conf
 
 # Verify docker image
    # TDOO:
