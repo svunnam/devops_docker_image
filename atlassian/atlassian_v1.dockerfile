@@ -72,7 +72,7 @@
 ##################################################
 
 FROM denny/java:v1
-MAINTAINER DennyZhang.com <denny@dennyzhang.com>
+MAINTAINER DennyZhang.com <http://dennyzhang.com>
 
 # http://linoxide.com/linux-how-to/setup-jira-ubuntu-15-04/
 # http://blog.163.com/s_w_wang/blog/static/1716092212014726101210574/

@@ -10,7 +10,7 @@
 ##################################################
 # https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04
 FROM denny/datareport:v1.0
-MAINTAINER Denny <denny@dennyzhang.com>
+MAINTAINER Denny <http://dennyzhang.com>
 ARG working_dir=/root/
 
 RUN apt-get -y update && \

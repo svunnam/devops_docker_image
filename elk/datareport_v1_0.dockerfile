@@ -11,7 +11,7 @@
 # https://github.com/DennyZhang/devops_docker_image/blob/master/java/java_v1_0.dockerfile
 # https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04
 FROM denny/java:v1.0
-MAINTAINER Denny <denny@dennyzhang.com>
+MAINTAINER Denny <http://dennyzhang.com>
 
 ARG LOGSTASH_VERSION=2.4.0
 ARG ELASTICSEARCH_VERSION=2.4.1

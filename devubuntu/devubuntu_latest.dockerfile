@@ -13,7 +13,7 @@
 ##################################################
 
 FROM denny/devubuntu:v1
-MAINTAINER DennyZhang.com <denny@dennyzhang.com>
+MAINTAINER DennyZhang.com <http://dennyzhang.com>
 
 ########################################################################################
 # install docker with 1.11.2

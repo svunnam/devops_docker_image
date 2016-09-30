@@ -25,7 +25,7 @@
 ##################################################
 
 FROM denny/elk:v1
-MAINTAINER DennyZhang.com <denny@dennyzhang.com>
+MAINTAINER DennyZhang.com <http://dennyzhang.com>
 
 ########################################################################################
 # create logstash setting, to parse /var/log/data_report.log

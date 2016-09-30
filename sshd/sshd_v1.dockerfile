@@ -7,7 +7,7 @@
 ##################################################
 
 FROM ubuntu:14.04
-MAINTAINER DennyZhang.com <denny@dennyzhang.com>
+MAINTAINER DennyZhang.com <http://dennyzhang.com>
 
 ########################################################################################
 # apt-get install -y openssh-server

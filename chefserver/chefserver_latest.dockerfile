@@ -22,7 +22,7 @@
 ##################################################
 
 FROM denny/chefserver:v1
-MAINTAINER DennyZhang.com <denny@dennyzhang.com>
+MAINTAINER DennyZhang.com <http://dennyzhang.com>
 
 ########################################################################################
 

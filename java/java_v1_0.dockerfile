@@ -7,7 +7,7 @@
 ##  Build Image From Dockerfile. docker build -f Dockerfile_java_v1_0 -t denny/java:v1.0 --rm=true .
 ##################################################
 FROM ubuntu:14.04
-MAINTAINER Denny <denny@dennyzhang.com>
+MAINTAINER Denny <http://dennyzhang.com>
 
 ARG DEBIAN_FRONTEND=noninteractive
 
