@@ -16,5 +16,12 @@ FROM denny/devubuntu:v1
 MAINTAINER DennyZhang.com <denny@dennyzhang.com>
 
 ########################################################################################
+# install docker with 1.11.2
+wget -qO- https://get.docker.com/ | sh
+apt-get install -y docker-engine=1.11.2-0~trusty
+apt-mark hold docker-engine
 
+service docker stop
+
+docker --version | grep 1.11.2
 ########################################################################################

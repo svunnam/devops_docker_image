@@ -91,7 +91,6 @@ export PATH=\$PATH:\$SONARQUBE_HOME/bin/linux-x86-64:\$SONAR_RUNNER_HOME/bin
 EOF
 
 chmod o+x /etc/profile.d/sonar.sh
-source /etc/profile
 
 su jenkins
 source /etc/profile
