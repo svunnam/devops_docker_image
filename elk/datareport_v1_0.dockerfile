@@ -34,9 +34,17 @@ RUN apt-get -y update && \
     # create elasticsearch data directory
     mkdir -p /opt/elasticsearch/data /opt/elasticsearch/plugins && \
     mkdir -p /opt/elasticsearch/logs /opt/elasticsearch/config/scripts /var/run/elasticsearch && \
-    chown -R elasticsearch:elasticsearch /opt/elasticsearch/data /opt/elasticsearch/plugins && \
-    chown -R elasticsearch:elasticsearch /opt/elasticsearch/logs /opt/elasticsearch/config/scripts && \
-    chown -R elasticsearch:elasticsearch /var/run/elasticsearch && \
+    chown -R elasticsearch:elasticsearch /opt/elasticsearch/data && \
+    chown -R elasticsearch:elasticsearch /opt/elasticsearch/plugins /opt/elasticsearch/logs && \
+    chown -R elasticsearch:elasticsearch /var/run/elasticsearch /opt/elasticsearch/config/scripts && \
+
+    # enable elasticsearch snapshot
+    mkdir -p /opt/elasticsearch/snapshot && \
+    chown elasticsearch:elasticsearch /opt/elasticsearch/snapshot && \
+    echo "path.repo: [\"/opt/elasticsearch/snapshot\"]" >> /opt/elasticsearch/config/elasticsearch.yml && \
+
+# elasticsearch head plugin
+    cd /opt/ && elasticsearch/bin/plugin install mobz/elasticsearch-head && \
 
 # Kibana
    wget -O /opt/kibana-${KIBANA_VERSION}-linux-x64.tar.gz https://download.elastic.co/kibana/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz && \
@@ -51,6 +59,7 @@ RUN apt-get -y update && \
 # Download logstash conf file
    wget -O /opt/logstash/data_report.conf \
         https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/data_report.conf && \
+   touch /var/log/data_report.log && \
 
 # Start services through supervisord
    wget -O /etc/supervisor/conf.d/elasticsearch.conf \
@@ -60,10 +69,15 @@ RUN apt-get -y update && \
    wget -O /etc/supervisor/conf.d/logstash.conf \
         https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/logstash.conf && \
 
+# install elasticdump tool for backup
+  apt-get install -y nodejs npm && ln -s /usr/bin/nodejs /usr/bin/node && \
+  npm install elasticdump -g && \
+
 # Shutdown services
 
 # Clean up to make docker image smaller
    apt-get clean && \
+   rm -rf /opt/*.zip /opt/*.tar.gz && \
 
 # Verify docker image
    /opt/logstash/bin/logstash --version --version | grep ${LOGSTASH_VERSION} && \
