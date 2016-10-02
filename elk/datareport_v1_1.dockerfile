@@ -41,8 +41,13 @@ RUN service supervisor start && sleep 5 && \
     curl -XPUT http://localhost:9200/.kibana/config/$KIBANA_VERSION -d '{"defaultIndex" : "logstash-*"}' && \
 
 # Import kibana saved search, visuzliation and dashboards
-   wget -O /root/kibana-exported.json \
+   wget -O /root/kibana-data-exported.json \
         https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/kibana-exported.json && \
+
+   elasticdump \
+       --input=/root/kibana-data-exported.json \
+       --output=http://localhost:9200/.kibana \
+       --type=data && \
 
 # Stop service
    service supervisor stop && sleep 5
