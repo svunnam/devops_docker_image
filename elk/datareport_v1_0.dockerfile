@@ -69,6 +69,12 @@ RUN apt-get -y update && \
    wget -O /etc/supervisor/conf.d/logstash.conf \
         https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/logstash.conf && \
 
+# install latest nodejs
+   cd /tmp/ && wget http://repo.fluigdata.com:18000/node-v4.5.0.tar.gz && \
+   tar -xf node-v4.5.0.tar.gz && cd node-v4.5.0 && \
+   # the step of make might take 20 minutes to finish
+   ./configure && make && make install && \
+
 # install elasticdump tool for backup
   apt-get install -y nodejs npm && ln -s /usr/bin/nodejs /usr/bin/node && \
   npm install elasticdump -g && \
@@ -77,12 +83,15 @@ RUN apt-get -y update && \
 
 # Clean up to make docker image smaller
    apt-get clean && \
-   rm -rf /opt/*.zip /opt/*.tar.gz && \
+   rm -rf /opt/*.zip /opt/*.tar.gz /tmp/* && \
 
 # Verify docker image
    /opt/logstash/bin/logstash --version --version | grep ${LOGSTASH_VERSION} && \
    /opt/elasticsearch/bin/elasticsearch --version | grep ${ELASTICSEARCH_VERSION} && \
-   /opt/kibana/bin/kibana --version | grep ${KIBANA_VERSION}
+   /opt/kibana/bin/kibana --version | grep ${KIBANA_VERSION} && \
+   node --version | grep "v4.5.0" && \
+   npm --version | grep "2.15.9"
+
    # TDOO:
    # # start service and check status
    # service supervisor start || true && \
