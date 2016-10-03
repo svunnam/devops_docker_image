@@ -70,7 +70,7 @@ RUN apt-get -y update && \
         https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/logstash.conf && \
 
 # install latest nodejs
-   apt-get install -y make && \
+   apt-get install -y build-essential && \
    cd /tmp/ && wget http://repo.fluigdata.com:18000/node-v4.5.0.tar.gz && \
    tar -xf node-v4.5.0.tar.gz && cd node-v4.5.0 && \
    # the step of make might take 20 minutes to finish
