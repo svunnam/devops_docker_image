@@ -32,8 +32,8 @@ RUN service supervisor start && sleep 5 && \
          "host": "curl_client", \
          "log_timestamp": "01/Aug/2016:00:26:02 +0000", \
          "item_name": "master-denny", \
-         "property_name": "ESItemNum", \
-         "property_value": 486 \
+         "property_name": "DummyTest", \
+         "property_value": 0 \
     }' && \
 
 # Configure kibana default index programmatically

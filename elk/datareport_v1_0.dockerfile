@@ -24,6 +24,16 @@ RUN apt-get -y update && \
     apt-get install --no-install-recommends -y supervisor curl wget unzip && \
     apt-get install --no-install-recommends -y lsof net-tools vim telnet && \
 
+# install latest nodejs
+   apt-get install -y build-essential && \
+   cd /tmp/ && wget http://repo.fluigdata.com:18000/node-v4.5.0.tar.gz && \
+   tar -xf node-v4.5.0.tar.gz && cd node-v4.5.0 && \
+   # the step of make might take 20 minutes to finish
+   ./configure && make && make install && \
+
+# install elasticdump tool for backup
+  npm install elasticdump -g && \
+
 # Elasticsearch
     wget -O /opt/elasticsearch-${ELASTICSEARCH_VERSION}.zip https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/${ELASTICSEARCH_VERSION}/elasticsearch-${ELASTICSEARCH_VERSION}.zip && \
     cd /opt && \unzip elasticsearch-${ELASTICSEARCH_VERSION}.zip && \
@@ -68,16 +78,6 @@ RUN apt-get -y update && \
         https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/kibana.conf && \
    wget -O /etc/supervisor/conf.d/logstash.conf \
         https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/logstash.conf && \
-
-# install latest nodejs
-   apt-get install -y build-essential && \
-   cd /tmp/ && wget http://repo.fluigdata.com:18000/node-v4.5.0.tar.gz && \
-   tar -xf node-v4.5.0.tar.gz && cd node-v4.5.0 && \
-   # the step of make might take 20 minutes to finish
-   ./configure && make && make install && \
-
-# install elasticdump tool for backup
-  npm install elasticdump -g && \
 
 # Shutdown services
 
