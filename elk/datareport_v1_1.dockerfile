@@ -42,7 +42,7 @@ RUN service supervisor start && sleep 5 && \
 
 # Import kibana saved search, visuzliation and dashboards
    wget -O /root/kibana-data-exported.json \
-        https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/kibana-exported.json && \
+        https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/kibana-data-exported.json && \
 
    elasticdump \
        --input=/root/kibana-data-exported.json \
