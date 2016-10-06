@@ -3,8 +3,11 @@
 ##  Install docker utility
 ##  Download docker image: docker pull denny/datareport:v1.1
 ##  Start container:
-##    docker run -t -P -d --name my-test denny/datareport:v1.1 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
-##    docker run -t -P -d --name my-test denny/datareport:v1.1 /bin/bash
+##      docker stop my-test; docker rm my-test
+##      docker run -t -P -d --name my-test -p 6601:5601 denny/datareport:v1.1 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
+##      docker exec -it my-test bash
+##
+##      docker run -t -P -d --name my-test denny/datareport:v1.1 /bin/bash
 ##
 ##  curl http://localhost:9200/_cat/indices?v
 ##  /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
