@@ -43,7 +43,15 @@ RUN service supervisor start && sleep 5 && \
     curl -XPUT http://localhost:9200/.kibana/index-pattern/logstash-* -d '{"title" : "logstash-*",  "timeFieldName": "@timestamp"}' && \
     curl -XPUT http://localhost:9200/.kibana/config/$KIBANA_VERSION -d '{"defaultIndex" : "logstash-*"}' && \
 
-# Import kibana saved search, visuzliation and dashboards
+# Import kibana saved search, visualization and dashboards
+   wget -O /root/kibana-mapping-exported.json \
+        https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/kibana-mapping-exported.json && \
+
+   elasticdump \
+       --input=/root/kibana-mapping-exported.json \
+       --output=http://localhost:9200/.kibana \
+       --type=mapping && \
+
    wget -O /root/kibana-data-exported.json \
         https://github.com/DennyZhang/devops_docker_image/raw/master/dockerfile_resource/datareport/kibana-data-exported.json && \
 
