@@ -4,25 +4,26 @@
 ##  Download docker image: docker pull denny/shadowsock:v1
 ##
 ##  Start container:
-##   docker run -t -d --privileged -h shadowsock --name my-shadowsock -p 6187:6187 -p 6188:22 denny/shadowsock:v1 /usr/sbin/sshd -D
+##   docker run -t -d --privileged -h shadowsock --name my-shadowsock -p 6187:6187 denny/shadowsock:v1 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 ##
 ##   docker exec -it my-shadowsock bash
 ##     ps -ef | grep shadow
-##     service supervisor start
+##     # Reload setting
 ##     supervisorctl reload
 ##
 ##     service supervisor status
 ##     telnet 127.0.0.1 6187
+##     # Check log
 ##     tail -f /var/log/supervisor/shadowsocks-stderr*
 ##################################################
 
-FROM denny/sshd:v1
+FROM ubuntu:14.04
 MAINTAINER DennyZhang.com <http://dennyzhang.com>
 
 ########################################################################################
-apt-get update
-apt-get install python-pip python-m2crypto supervisor lsof
-pip install shadowsocks
+RUN apt-get -y update && \
+    apt-get install -y python-pip python-m2crypto supervisor lsof && \
+    pip install shadowsocks && \
 
 # create /etc/shadowsocks.json
 # create /etc/supervisor/conf.d/shadowsocks.conf
