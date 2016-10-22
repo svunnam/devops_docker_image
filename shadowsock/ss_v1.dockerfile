@@ -11,7 +11,7 @@
 ##
 ##   docker exec -it my-ss bash
 ##     # Change password
-##     sed -i sed -i "s/DamnGFW/DamnFirewall123/g" /etc/shadowsocks.json
+##     sed -i "s/DamnGFW/DamnFirewall123/g" /etc/shadowsocks.json
 ##
 ##     # Reload setting
 ##     supervisorctl reload
