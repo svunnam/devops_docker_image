@@ -1,23 +1,23 @@
 ########## How To Use Docker Image ###############
 ##
 ##  Install docker utility
-##  Download docker image: docker pull denny/shadowsock:v1
-##  Build Image From Dockerfile. docker build -f shadowsock_v1.dockerfile -t denny/shadowsock:v1 --rm=true .
+##  Download docker image: docker pull denny/ss:v1
+##  Build Image From Dockerfile. docker build -f ss_v1.dockerfile -t denny/ss:v1 --rm=true .
 ##
 ##  Start container:
-##   docker run -t -d --privileged -h shadowsock --name my-shadowsock -p 6187:6187 denny/shadowsock:v1 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
+##   docker run -t -d --privileged -h ss --name my-ss -p 6187:6187 denny/ss:v1 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 ##
 ##   Default password: DamnGFW1234, default server port: 6187
 ##
-##   docker exec -it my-shadowsock bash
-##     ps -ef | grep shadow
+##   docker exec -it my-ss bash
+##     ps -ef | grep shadowsock
 ##     # Reload setting
 ##     supervisorctl reload
 ##
 ##     service supervisor status
 ##     telnet 127.0.0.1 6187
 ##     # Check log
-##     tail -f /var/log/supervisor/shadowsocks-stderr*
+##     tail -f /var/log/supervisor/sss-stderr*
 ##################################################
 
 FROM ubuntu:14.04
@@ -28,7 +28,7 @@ ARG SERVER_PORT="6187"
 
 ########################################################################################
 RUN apt-get -y update && \
-    apt-get install -y lsof wget telnet && \
+    apt-get install -y lsof wget telnet tcpdump && \
     apt-get install -y python-pip python-m2crypto supervisor lsof && \
     pip install shadowsocks && \
 
