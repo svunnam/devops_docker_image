@@ -10,9 +10,14 @@
 ##   Default password: DamnGFW1234, default server port: 6187
 ##
 ##   docker exec -it my-ss bash
-##     ps -ef | grep shadowsock
+##     # Change password
+##     sed -i sed -i "s/DamnGFW/DamnFirewall123/g" /etc/shadowsocks.json
+##
 ##     # Reload setting
 ##     supervisorctl reload
+##
+##     # Check status
+##     ps -ef | grep shadowsock
 ##
 ##     service supervisor status
 ##     telnet 127.0.0.1 6187
