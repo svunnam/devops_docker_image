@@ -2,6 +2,7 @@
 ##
 ##  Install docker utility
 ##  Download docker image: docker pull denny/shadowsock:v1
+##  Build Image From Dockerfile. docker build -f shadowsock_v1.dockerfile -t denny/shadowsock:v1 --rm=true .
 ##
 ##  Start container:
 ##   docker run -t -d --privileged -h shadowsock --name my-shadowsock -p 6187:6187 denny/shadowsock:v1 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
@@ -39,13 +40,12 @@ RUN apt-get -y update && \
 
 # Use supervisord to start shadowsock
    wget -O /etc/supervisor/conf.d/shadowsocks.conf \
-        https://raw.githubusercontent.com/DennyZhang/devops_docker_image/tag_v2/shadowsock/resource/shadowsocks.conf
+        https://raw.githubusercontent.com/DennyZhang/devops_docker_image/tag_v2/shadowsock/resource/shadowsocks.conf && \
 
    service supervisor restart && \
 
 # clean up, to make image smaller
    rm -rf /var/cache/* && \
    rm -rf /tmp/* /var/tmp/* && \
-   rm -rf /usr/share/doc && \
-   apt-get clean && apt-get autoclean
+   rm -rf /usr/share/doc
 ########################################################################################
