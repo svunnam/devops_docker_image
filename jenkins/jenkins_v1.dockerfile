@@ -33,7 +33,6 @@
 ##################################################
 
 FROM ubuntu:14.04
-FROM denny/jenkins:v1
 ARG jenkins_port="18080"
 ARG jenkins_version="2.19"
 ARG jenkins_username="chefadmin"
@@ -141,15 +140,6 @@ RUN apt-get -y update && \
 
 # Jenkins ThinBackup
     mkdir -p /var/lib/jenkins/backup && chown jenkins:jenkins /var/lib/jenkins/backup && \
-# Install SonarQube
-    mkdir -p /var/lib/jenkins/tool && \
-    cd /var/lib/jenkins/tool && \
-    wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-2.5.zip && \
-    unzip sonar-scanner-2.5.zip && rm -rf sonar-scanner-2.5.zip && \
-    cd /var/lib/jenkins/tool && \
-    wget https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-4.5.6.zip && \
-    unzip sonarqube-4.5.6.zip && rm -rf sonarqube-4.5.6.zip && \
-    chown jenkins:jenkins -R /var/lib/jenkins/tool && \
 
 # change locale
     locale-gen --lang en_US.UTF-8 && \
@@ -158,13 +148,6 @@ RUN apt-get -y update && \
     echo "export LC_ALL=\"en_US.UTF-8\"" >> /etc/profile.d/locale.sh && \
     echo ". /etc/profile.d/locale.sh" >> /var/lib/jenkins/.bashrc && \
     chown jenkins:jenkins /var/lib/jenkins/.bashrc && \
-
-# install shellcheck for code quality check for bash
-    apt-get install -y cabal-install && \
-    cabal update && \
-    # TODO: install fixed version for shellcheck
-    cabal install shellcheck && \
-    ln -s /root/.cabal/bin/shellcheck /usr/sbin/shellcheck && \
 
 # start jenkins
    service jenkins restart && sleep 5 && \
