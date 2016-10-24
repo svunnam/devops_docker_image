@@ -38,7 +38,7 @@ ARG jenkins_version="2.19"
 ARG jenkins_username="chefadmin"
 ARG jenkins_passwd="ChangeMe123"
 
-RUN service jenkins start && service apache2 start && \
+RUN
 # Install jenkins jobs
     apt-get -y update && \
     apt-get -yqq install git && \
@@ -46,6 +46,32 @@ RUN service jenkins start && service apache2 start && \
     cp -r /tmp/devops_jenkins/* /var/lib/jenkins/jobs/ && \
     chown jenkins:jenkins -R /var/lib/jenkins/jobs/ && \
 
+# Use supervisor to start apache and jenkins in foreground
+    apt-get install --no-install-recommends -y supervisor && \
+    # TODO: change to better way
+    echo "#!/bin/bash -e" > /root/start_apache_foreground.sh && \
+    echo "cd /etc/apache2/ && apachectl -d . -e info -DFOREGROUND" >> /root/start_apache_foreground.sh && \
+    chmod o+x /root/start_apache_foreground.sh && \
+
+    # supervisor manage apache2
+    echo "[program:apache2]" > /etc/supervisor/conf.d/apache2.conf && \
+    echo "command=/root/start_apache_foreground.sh" >> /etc/supervisor/conf.d/apache2.conf && \
+    echo "command=/root/start_apache_foreground.sh" >> /etc/supervisor/conf.d/apache2.conf && \
+    echo "stdout_logfile=/var/log/apache2.log" >> /etc/supervisor/conf.d/apache2.conf && \
+    echo "redirect_stderr=true" >> /etc/supervisor/conf.d/apache2.conf && \
+
+    echo "#!/bin/bash -e" > /root/start_jenkins_foreground.sh && \
+    echo "/bin/su -l jenkins -c 'java -jar /usr/share/jenkins/jenkins.war --webroot=/var/cache/jenkins/war --httpListenAddress=0.0.0.0 --httpPort=18080 --ajp13Port=-1'" >> /root/start_jenkins_foreground.sh && \
+    chmod o+x /root/start_jenkins_foreground.sh && \
+
+    # supervisor manage jenkins
+    echo "[program:jenkins]" > /etc/supervisor/conf.d/jenkins.conf && \
+    echo "command=/root/start_jenkins_foreground.sh" >> /etc/supervisor/conf.d/jenkins.conf && \
+    echo "stdout_logfile=/var/log/jenkins.log" >> /etc/supervisor/conf.d/jenkins.conf && \
+    echo "redirect_stderr=true" >> /etc/supervisor/conf.d/jenkins.conf && \
+
+    # start service
+    service supervisor start && sleep 5 && \
 # TODO: use ThinBackup to perform backup and restore: create view
 
 # TODO: fix all possible failures
@@ -64,8 +90,9 @@ RUN service jenkins start && service apache2 start && \
     test -f /var/lib/jenkins/jobs/CommonServerCheck/config.xml && \
 
 # Stop services
-   service jenkins stop && \
-   service apache2 stop && \
+   service jenkins stop || true && \
+   service apache2 stop || true && \
+   service supervisor stop || true && \
 
 # clean files to make image smaller
    rm -rf /var/run/jenkins/jenkins.pid && \
