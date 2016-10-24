@@ -45,7 +45,7 @@ RUN service supervisor start && sleep 5 && \
 
 # Import kibana saved search, visualization and dashboards
    wget -O /root/kibana-mapping-exported.json \
-        https://github.com/DennyZhang/devops_docker_image/raw/tag_v2/elk/reousrces/kibana-mapping-exported.json && \
+        https://raw.githubusercontent.com/DennyZhang/devops_docker_image/raw/tag_v2/elk/reousrces/kibana-mapping-exported.json && \
 
    elasticdump \
        --input=/root/kibana-mapping-exported.json \
@@ -53,7 +53,7 @@ RUN service supervisor start && sleep 5 && \
        --type=mapping && \
 
    wget -O /root/kibana-data-exported.json \
-        https://github.com/DennyZhang/devops_docker_image/raw/tag_v2/elk/reousrces/kibana-data-exported.json && \
+        https://raw.githubusercontent.com/DennyZhang/devops_docker_image/raw/tag_v2/elk/reousrces/kibana-data-exported.json && \
 
    elasticdump \
        --input=/root/kibana-data-exported.json \
