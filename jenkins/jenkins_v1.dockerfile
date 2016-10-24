@@ -2,7 +2,9 @@
 ##
 ##  Install docker utility
 ##  Download docker image: denny/jenkins:v1
-##  Boot docker container: docker run -t -d -h jenkins --name my-jenkins --privileged -p 18080:18080 -p 18000:18000 -p 9000:9000 denny/jenkins:v1 /usr/sbin/sshd -D
+##  Boot docker container: docker run -t -d -h jenkins --name my-jenkins --privileged -p 18080:18080 -p 18000:80 -p 9000:9000 denny/jenkins:v1 /usr/sbin/sshd -D
+##
+##  Build Image From Dockerfile. docker build -f jenkins_v1.dockerfile -t denny/jenkins:v1 --rm=true .
 ##
 ##   18080(Jenkins), 18000(Apache), 9000(sonar)
 ##
@@ -19,7 +21,7 @@
 ##      curl -v http://localhost:18080
 ##
 ##     service apache2 start
-##      curl -v http://localhost:18000/README.txt
+##      curl -v http://localhost:80/
 ##
 ##     source /etc/profile
 ##     sudo $SONARQUBE_HOME/bin/linux-x86-64/sonar.sh start
@@ -34,8 +36,8 @@ FROM ubuntu:14.04
 FROM denny/jenkins:v1
 ARG jenkins_port="18080"
 ARG jenkins_version="2.19"
-
-ADD jenkins_credential /tmp/
+ARG jenkins_username="chefadmin"
+ARG jenkins_passwd="ChangeMe123"
 
 # Basic setup
 RUN apt-get -y update && \
@@ -61,6 +63,9 @@ RUN apt-get -y update && \
    gem install rubocop -v "0.44.1"  && \
    gem install foodcritic -v "8.0.0" && \
 
+# Install apache2
+    apt-get install -yqq apache2 && \
+
 # Install Jenkins with specific version
     apt-get install -yqq daemon psmisc && \
     apt-get install -yqq java-common openjdk-7-jre-headless default-jre-headless && \
@@ -76,7 +81,8 @@ RUN apt-get -y update && \
 # Reconfigure Jenkins port
    sed -i "s/HTTP_PORT=.*/HTTP_PORT=$jenkins_port/g" /etc/default/jenkins && \
 
-# start Jenkins
+# start services
+   service apache2 restart && \
    service jenkins restart && sleep 10 && \
 
    # Install Matrix Authorization Strategy Plugin
@@ -99,7 +105,6 @@ RUN apt-get -y update && \
 ##################################################
 # Jenkins Customization For Security
 
-   . /tmp/jenkins_credential && \
    # Create Jenkins admin user
    # reset admin password
    mkdir -p /var/lib/jenkins/users/chefadmin && \
@@ -174,6 +179,7 @@ RUN apt-get -y update && \
     service jenkins status | grep "is running with" && \
     sudo -u jenkins lsof -i tcp:$jenkins_port && \
     java -jar /tmp/jenkins-cli.jar -s http://localhost:18080/ list-jobs && \
+    lsof -i tcp:80 && \
     ruby --version | grep "2\.2\.5" && \
     gem list bundle | grep "0\.0\.1" && \
     rubocop --version | grep "0\.44\.1" && \
@@ -182,6 +188,7 @@ RUN apt-get -y update && \
 
 # Stop services
    service jenkins stop && \
+   service apache2 stop && \
 
 # clean files to make image smaller
    rm -rf /var/run/jenkins/jenkins.pid && \
