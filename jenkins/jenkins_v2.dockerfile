@@ -61,7 +61,6 @@ RUN service jenkins start && service apache2 start && \
     dpkg -l jenkins | grep "$jenkins_version" && \
     service jenkins status | grep "is running with" && \
     sudo -u jenkins lsof -i tcp:$jenkins_port && \
-    java -jar /tmp/jenkins-cli.jar -s http://localhost:18080/ list-jobs && \
     lsof -i tcp:80 && \
     ruby --version | grep "2\.2\.5" && \
     gem list bundle | grep "0\.0\.1" && \

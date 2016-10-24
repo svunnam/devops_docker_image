@@ -42,26 +42,22 @@ RUN service jenkins start && service apache2 start && \
 # Install jenkins jobs
     apt-get -y update && \
     apt-get -yqq install git && \
-    mkdir -p /root/.ssh && \
-    > /root/.ssh/config && \
-    echo "Host github.com" >> /root/.ssh/config && \
-    echo "  User git" >> /root/.ssh/config && \
-    # echo "  IdentityFile /root/.ssh/github_id_rsa" >> /root/.ssh/config && \
-    echo "  StrictHostKeyChecking no" >> /root/.ssh/config && \
-    cd /tmp && git clone git@github.com:DennyZhang/devops_jenkins.git && \
+    cd /tmp && git clone https://github.com/DennyZhang/devops_jenkins.git && \
+    cp -r /tmp/devops_jenkins/* /var/lib/jenkins/jobs/ && \
+    chown jenkins:jenkins -R /var/lib/jenkins/jobs/ && \
 
 ########################################################################################
 # Verify status
     dpkg -l jenkins | grep "$jenkins_version" && \
     service jenkins status | grep "is running with" && \
     sudo -u jenkins lsof -i tcp:$jenkins_port && \
-    java -jar /tmp/jenkins-cli.jar -s http://localhost:18080/ list-jobs && \
     lsof -i tcp:80 && \
     ruby --version | grep "2\.2\.5" && \
     gem list bundle | grep "0\.0\.1" && \
     rubocop --version | grep "0\.44\.1" && \
     foodcritic --version | grep "8\.0\.0" && \
     shellcheck --version | grep "0\.4\.4" && \
+    test -f /var/lib/jenkins/jobs/CommonServerCheck/config.xml && \
 
 # Stop services
    service jenkins stop && \
