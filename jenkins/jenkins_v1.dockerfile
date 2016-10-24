@@ -2,9 +2,9 @@
 ##
 ##  Install docker utility
 ##  Download docker image: denny/jenkins:v1
-##  Boot docker container: docker run -t -d -h jenkins --name my-jenkins --privileged -p 61022:9000 -p 61023:22 -p 61081:28000 -p 61082:28080 denny/jenkins:v1 /usr/sbin/sshd -D
+##  Boot docker container: docker run -t -d -h jenkins --name my-jenkins --privileged -p 18080:18080 -p 18000:18000 -p 9000:9000 denny/jenkins:v1 /usr/sbin/sshd -D
 ##
-##   9000 port: Sonar, 22: sshd, 28080: Jenkins, 28080: Apache
+##   18080(Jenkins), 18000(Apache), 9000(sonar)
 ##
 ##     ruby --version
 ##     gem --version
@@ -16,10 +16,10 @@
 ##     which chef-solo
 ##     source /etc/profile
 ##     service jenkins start
-##      curl -v http://localhost:28080
+##      curl -v http://localhost:18080
 ##
 ##     service apache2 start
-##      curl -v http://localhost:28000/README.txt
+##      curl -v http://localhost:18000/README.txt
 ##
 ##     source /etc/profile
 ##     sudo $SONARQUBE_HOME/bin/linux-x86-64/sonar.sh start
@@ -30,141 +30,162 @@
 ##     Built-in jenkins user: dennyzhang/DevOpsChangeMe1 devops.consultant@dennyzhang.com
 ##################################################
 
-FROM denny/sshd:v1
-MAINTAINER DennyZhang.com <http://dennyzhang.com>
+FROM ubuntu:14.04
+FROM denny/jenkins:v1
+ARG jenkins_port="18080"
+ARG jenkins_version="2.19"
 
-########################################################################################
-# install kitchen
-cd /tmp/
-wget https://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/12.04/x86_64/chefdk_0.4.0-1_amd64.deb
-dpkg -i chefdk_0.4.0-1_amd64.deb
-rm -rf /tmp/chefdk_0.4.0-1_amd64.deb
+ADD jenkins_credential /tmp/
 
-apt-get install -y git unzip zip bc
+# Basic setup
+RUN apt-get -y update && \
+    apt-get -yqq install wget curl vim lsof && \
+    apt-get install -y nmap unzip && \
+    apt-get install -y git build-essential && \
+    apt-get install -y python-dev libevent-dev python-pip && \
+    apt-get install -y libxml2-dev libxslt1-dev zlib1g-dev libssl-dev libreadline6-dev libyaml-dev && \
+    # TODO: use fixed version
+    pip install elasticsearch && \
+    pip install flask && \
 
-# install docker
-curl -sSL https://get.docker.com/ | sudo sh
+# Install Ruby 2.2
+   apt-get -yqq install software-properties-common python-software-properties && \
+   apt-get -yqq install python-software-properties && \
+   apt-add-repository -y ppa:brightbox/ruby-ng && \
+   apt-get -yqq update && \
+   apt-get -yqq install ruby2.2 ruby2.2-dev && \
+   rm -rf /usr/bin/ruby && \
+   ln -s /usr/bin/ruby2.2 /usr/bin/ruby && \
+   rm -rf /usr/local/bin/ruby /usr/local/bin/gem /usr/local/bin/bundle && \
+   gem install bundle -v "0.0.1" && \
+   gem install rubocop -v "0.44.1"  && \
+   gem install foodcritic -v "8.0.0" && \
 
-# install ruby2 (install ruby 2.2, before install kitchen gem)
-sudo apt-get -y update
-sudo apt-get -y install build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev
-cd /tmp
-wget http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.1.tar.gz
-tar -xvzf ruby-2.2.1.tar.gz
-cd ruby-2.2.1
-./configure --prefix=/usr/local
-make
-make install
-ruby --version
-rm -rf /tmp/ruby-2.2.1*
+# Install Jenkins with specific version
+    apt-get install -yqq daemon psmisc && \
+    apt-get install -yqq java-common openjdk-7-jre-headless default-jre-headless && \
+    curl -o /tmp/jenkins_${jenkins_version}_all.deb http://mirror.xmission.com/jenkins/debian/jenkins_${jenkins_version}_all.deb && \
+    # avoid sysv-rc error
+    sed -i 's/exit 101/exit 0/g' /usr/sbin/policy-rc.d && \
+    dpkg -i /tmp/jenkins_${jenkins_version}_all.deb && \
+    # Change it back
+    sed -i 's/exit 0/exit 101/g' /usr/sbin/policy-rc.d && \
 
-# remove old gem and ruby: /usr/bin/gem* /usr/bin/ruby*
+# Jenkins parameter skip setup wizard, this also leave Jenkins insecure-by-default
+   echo "JAVA_ARGS=\"$JAVA_ARGS -Dhudson.diyChunking=false -Djenkins.install.runSetupWizard=false\"" >> /etc/default/jenkins && \
+# Reconfigure Jenkins port
+   sed -i "s/HTTP_PORT=.*/HTTP_PORT=$jenkins_port/g" /etc/default/jenkins && \
 
-# install bundler and gems for kitchen
-gem install bundler
+# start Jenkins
+   service jenkins restart && sleep 10 && \
 
-cat > /tmp/Gemfile <<EOF
-source 'https://rubygems.org'
+   # Install Matrix Authorization Strategy Plugin
+   curl -o /tmp/jenkins-cli.jar http://localhost:$jenkins_port/jnlpJars/jenkins-cli.jar && \
+   java -jar /tmp/jenkins-cli.jar -s http://localhost:$jenkins_port/ install-plugin http://updates.jenkins-ci.org/latest/icon-shim.hpi && \
+   java -jar /tmp/jenkins-cli.jar -s http://localhost:$jenkins_port/ install-plugin http://updates.jenkins-ci.org/latest/matrix-auth.hpi && \
+   java -jar /tmp/jenkins-cli.jar -s http://localhost:$jenkins_port/ install-plugin http://updates.jenkins-ci.org/latest/simple-theme-plugin.hpi && \
+   # Install naginator Jenkins plugin
+   java -jar /tmp/jenkins-cli.jar -s http://localhost:$jenkins_port/ install-plugin http://mirrors.jenkins-ci.org/plugins/bouncycastle-api/2.16.0/bouncycastle-api.hpi && \
+   java -jar /tmp/jenkins-cli.jar -s http://localhost:$jenkins_port/ install-plugin http://updates.jenkins-ci.org/download/plugins/structs/1.5/structs.hpi && \
+   java -jar /tmp/jenkins-cli.jar -s http://localhost:$jenkins_port/ install-plugin http://mirrors.jenkins-ci.org/plugins/junit/1.18/junit.hpi && \
+   java -jar /tmp/jenkins-cli.jar -s http://localhost:$jenkins_port/ install-plugin http://mirrors.jenkins-ci.org/plugins/script-security/1.22/script-security.hpi && \
+   java -jar /tmp/jenkins-cli.jar -s http://localhost:$jenkins_port/ install-plugin http://mirrors.jenkins-ci.org/plugins/matrix-project/1.7.1/matrix-project.hpi && \
+   java -jar /tmp/jenkins-cli.jar -s http://localhost:$jenkins_port/ install-plugin http://mirrors.jenkins-ci.org/plugins/naginator/1.17.2/naginator.hpi && \
+   # Install ThinBackup plugin
+   java -jar /tmp/jenkins-cli.jar -s http://localhost:$jenkins_port/ install-plugin http://mirrors.jenkins-ci.org/plugins/thinBackup/1.7.4/thinBackup.hpi && \
 
-gem 'test-kitchen', '= 1.4.1'
-gem 'kitchen-docker', '= 2.1.0'
+   service jenkins restart && sleep 5 && \
 
-gem 'kitchen-digitalocean'
+##################################################
+# Jenkins Customization For Security
 
-gem 'berkshelf'
-gem 'docker'
+   . /tmp/jenkins_credential && \
+   # Create Jenkins admin user
+   # reset admin password
+   mkdir -p /var/lib/jenkins/users/chefadmin && \
+   # TODO
+   wget -O /var/lib/jenkins/users/chefadmin/config.xml https://raw.githubusercontent.com/TOTVS/mdmpublic/master/chef/setup_jenkins/chefadmin_conf_xml && \
+   chown -R jenkins:jenkins /var/lib/jenkins/users/ && \
 
-gem 'busser'
-gem 'serverspec', '>= 1.6'
+   # Anonymous: Overall: Read; Job: Build/Cancel/Create/Delete/Read/Workspace
+   # Update Jenkins global setting: enable security by default. Anonymous users can trigger jobs
+   # TODO
+   wget -O /var/lib/jenkins/config.xml https://raw.githubusercontent.com/TOTVS/mdmpublic/master/chef/setup_jenkins/jenkins_conf_xml && \
+   chown -R jenkins:jenkins /var/lib/jenkins/config.xml && \
 
-gem 'chefspec',   '~> 4.1.0'
-gem 'foodcritic', '~> 4.0.0'
-gem 'rubocop',    '~> 0.28.0'
-EOF
-cd /tmp && bundle install
+# Configure jenkins ssh
+    mkdir -p /var/lib/jenkins/.ssh && \
 
-# install snar for code quality: http://www.sonarsource.org
-cat > /etc/profile.d/sonar.sh <<EOF
-export SONARQUBE_HOME=/var/lib/jenkins/tool/sonarqube-4.5.6
-export SONAR_RUNNER_HOME=/var/lib/jenkins/tool/sonar-scanner-2.5
-export PATH=\$PATH:\$SONARQUBE_HOME/bin/linux-x86-64:\$SONAR_RUNNER_HOME/bin
-EOF
+    # jenkins ssh config
+    > /var/lib/jenkins/.ssh/config && \
+    echo "Host *" >> /var/lib/jenkins/.ssh/config && \
+    echo "  User git" >> /var/lib/jenkins/.ssh/config && \
+    echo "  StrictHostKeyChecking no" >> /var/lib/jenkins/.ssh/config && \
+    echo "" >> /var/lib/jenkins/.ssh/config && \
+    echo "Host github.com" >> /var/lib/jenkins/.ssh/config && \
+    echo "  User git" >> /var/lib/jenkins/.ssh/config && \
+    echo "  IdentityFile /var/lib/jenkins/.ssh/github_id_rsa" >> /var/lib/jenkins/.ssh/config && \
+    echo "  StrictHostKeyChecking no" >> /var/lib/jenkins/.ssh/config && \
 
-chmod o+x /etc/profile.d/sonar.sh
+    chown -R jenkins:jenkins /var/lib/jenkins/.ssh && \
 
-su jenkins
-source /etc/profile
-which sonar.sh
-mkdir -p /var/lib/jenkins/tool
-cd /var/lib/jenkins/tool
-wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-2.5.zip
-unzip sonar-scanner-2.5.zip && rm -rf sonar-scanner-2.5.zip
-wget https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-4.5.6.zip
-unzip sonarqube-4.5.6.zip && rm -rf sonarqube-4.5.6.zip
+# Sonar Env
+    echo "export SONARQUBE_HOME=/var/lib/jenkins/tool/sonarqube-4.5.6" >> /etc/profile.d/sonar.sh && \
+    echo "export SONAR_RUNNER_HOME=/var/lib/jenkins/tool/sonar-scanner-2.5" >> /etc/profile.d/sonar.sh && \
+    echo "export PATH=\$PATH:\$SONARQUBE_HOME/bin/linux-x86-64:\$SONAR_RUNNER_HOME/bin" >> /etc/profile.d/sonar.sh && \
+    chmod o+x /etc/profile.d/sonar.sh && \
 
-source /etc/profile
-
-# Manually install jenkins plugins: timestamp, git client, git, slack, bearychat
-
-# reconfigure timestamper format to use: '<b>'yyyy-MM-dd HH:mm:ss'</b> '
-
-# Add Demo view and built-in jenkins jobs
-
-# configure jenkins system to have 4 executors
-
-# enforce jenkins users authentication
-
-# set locale to UTF-8
-locale-gen --lang en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
-export LC_CTYPE="en_US.UTF-8"
+# Jenkins ThinBackup
+    mkdir -p /var/lib/jenkins/backup && chown jenkins:jenkins /var/lib/jenkins/backup && \
+# Install SonarQube
+    mkdir -p /var/lib/jenkins/tool && \
+    cd /var/lib/jenkins/tool && \
+    wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-2.5.zip && \
+    unzip sonar-scanner-2.5.zip && rm -rf sonar-scanner-2.5.zip && \
+    cd /var/lib/jenkins/tool && \
+    wget https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-4.5.6.zip && \
+    unzip sonarqube-4.5.6.zip && rm -rf sonarqube-4.5.6.zip && \
+    chown jenkins:jenkins -R /var/lib/jenkins/tool && \
 
 # change locale
-cat > /etc/profile.d/locale.sh << EOF
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
-EOF
-
-# change locale
-cat > /var/lib/jenkins/.bashrc <<EOF
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
-EOF
-chown jenkins:jenkins /var/lib/jenkins/.bashrc
+    locale-gen --lang en_US.UTF-8 && \
+    > /etc/profile.d/locale.sh && \
+    echo "export LANG=\"en_US.UTF-8\"" >> /etc/profile.d/locale.sh && \
+    echo "export LC_ALL=\"en_US.UTF-8\"" >> /etc/profile.d/locale.sh && \
+    echo ". /etc/profile.d/locale.sh" >> /var/lib/jenkins/.bashrc && \
+    chown jenkins:jenkins /var/lib/jenkins/.bashrc && \
 
 # install shellcheck for code quality check for bash
-# https://github.com/koalaman/shellcheck/issues/439
-sudo apt-get install cabal-install
-cabal update
-cabal install shellcheck
+    apt-get install -y cabal-install && \
+    cabal update && \
+    # TODO: install fixed version for shellcheck
+    cabal install shellcheck && \
+    ln -s /root/.cabal/bin/shellcheck /usr/sbin/shellcheck && \
 
-# TODO: configure jenkins authentication:
-#       1. only login user can do anything;
-#       2. anonymous users can't do anything
+# start jenkins
+   service jenkins restart && sleep 5 && \
 
-# remove sensitive data: /var/lib/jenkins/.ssh/git_deploy_key_id_rsa
+# login Jenkins
+   java -jar /tmp/jenkins-cli.jar -s http://localhost:$jenkins_port/ login --username "$jenkins_username" --password "$jenkins_passwd" && \
 
-# empty /var/lib/jenkins/.ssh/known_hosts
+########################################################################################
+# Verify status
+    dpkg -l jenkins | grep "$jenkins_version" && \
+    service jenkins status | grep "is running with" && \
+    sudo -u jenkins lsof -i tcp:$jenkins_port && \
+    java -jar /tmp/jenkins-cli.jar -s http://localhost:18080/ list-jobs && \
+    ruby --version | grep "2\.2\.5" && \
+    gem list bundle | grep "0\.0\.1" && \
+    rubocop --version | grep "0\.44\.1" && \
+    foodcritic --version | grep "8\.0\.0" && \
+    shellcheck --version | grep "0\.4\.4" && \
 
-# change ruby gem sources
-gem sources -a https://ruby.taobao.org/ && \
-gem sources -r https://rubygems.org/ && \
-gem sources -r http://rubygems.org/
+# Stop services
+   service jenkins stop && \
 
-# pylint
-apt-get install -y --force-yes python-dev
-pip install pylint flask
-
-# TODO: install jenkins jobs by chef deployment
-
-# Install Jenkins 2.0
-http://devopscube.com/install-configure-jenkins-2-0/
-
-# TODO: Persist setting of Jenkins Views
-
-# clean up
-rm -rf /tmp/* /var/tmp/*
-rm -rf /usr/share/doc && \
-apt-get clean && apt-get autoclean
+# clean files to make image smaller
+   rm -rf /var/run/jenkins/jenkins.pid && \
+   rm -rf /tmp/*
+   
+CMD ["/bin/bash"]
 ########################################################################################
