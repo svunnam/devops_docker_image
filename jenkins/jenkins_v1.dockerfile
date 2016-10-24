@@ -166,7 +166,6 @@ RUN apt-get -y update && \
     gem list bundle | grep "0\.0\.1" && \
     rubocop --version | grep "0\.44\.1" && \
     foodcritic --version | grep "8\.0\.0" && \
-    shellcheck --version | grep "0\.4\.4" && \
 
 # Stop services
    service jenkins stop && \
