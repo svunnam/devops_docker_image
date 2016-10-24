@@ -36,10 +36,10 @@ FROM denny/jenkins:v2
 ARG jenkins_port="18080"
 ARG jenkins_version="2.19"
 
-RUN
 # Install jenkins jobs
-    apt-get -y update && \
+RUN apt-get -y update && \
     apt-get -yqq install git && \
+
     cd /tmp && git clone https://github.com/DennyZhang/devops_jenkins.git && \
     cp -r /tmp/devops_jenkins/* /var/lib/jenkins/jobs/ && \
     chown jenkins:jenkins -R /var/lib/jenkins/jobs/ && \
