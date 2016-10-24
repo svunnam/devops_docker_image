@@ -46,6 +46,10 @@ RUN service jenkins start && service apache2 start && \
     cp -r /tmp/devops_jenkins/* /var/lib/jenkins/jobs/ && \
     chown jenkins:jenkins -R /var/lib/jenkins/jobs/ && \
 
+# TODO: use ThinBackup to perform backup and restore: create view
+
+# TODO: fix all possible failures
+
 ########################################################################################
 # Verify status
     dpkg -l jenkins | grep "$jenkins_version" && \
