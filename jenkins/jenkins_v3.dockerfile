@@ -35,8 +35,6 @@
 FROM denny/jenkins:v2
 ARG jenkins_port="18080"
 ARG jenkins_version="2.19"
-ARG jenkins_username="chefadmin"
-ARG jenkins_passwd="ChangeMe123"
 
 RUN
 # Install jenkins jobs
@@ -45,11 +43,14 @@ RUN
     cd /tmp && git clone https://github.com/DennyZhang/devops_jenkins.git && \
     cp -r /tmp/devops_jenkins/* /var/lib/jenkins/jobs/ && \
     chown jenkins:jenkins -R /var/lib/jenkins/jobs/ && \
+# TODO: use ThinBackup to perform backup and restore: create view
+
+# TODO: fix all possible failures
 
 # Use supervisor to start apache and jenkins in foreground
     apt-get install --no-install-recommends -y supervisor && \
     # TODO: change to better way
-    echo "#!/bin/bash -e" > /root/start_apache_foreground.sh && \
+    echo '#!/bin/bash -e' > /root/start_apache_foreground.sh && \
     echo "cd /etc/apache2/ && apachectl -d . -e info -DFOREGROUND" >> /root/start_apache_foreground.sh && \
     chmod o+x /root/start_apache_foreground.sh && \
 
@@ -60,7 +61,7 @@ RUN
     echo "stdout_logfile=/var/log/apache2.log" >> /etc/supervisor/conf.d/apache2.conf && \
     echo "redirect_stderr=true" >> /etc/supervisor/conf.d/apache2.conf && \
 
-    echo "#!/bin/bash -e" > /root/start_jenkins_foreground.sh && \
+    echo '#!/bin/bash -e' > /root/start_jenkins_foreground.sh && \
     echo "/bin/su -l jenkins -c 'java -jar /usr/share/jenkins/jenkins.war --webroot=/var/cache/jenkins/war --httpListenAddress=0.0.0.0 --httpPort=18080 --ajp13Port=-1'" >> /root/start_jenkins_foreground.sh && \
     chmod o+x /root/start_jenkins_foreground.sh && \
 
@@ -72,14 +73,10 @@ RUN
 
     # start service
     service supervisor start && sleep 5 && \
-# TODO: use ThinBackup to perform backup and restore: create view
-
-# TODO: fix all possible failures
 
 ########################################################################################
 # Verify status
     dpkg -l jenkins | grep "$jenkins_version" && \
-    service jenkins status | grep "is running with" && \
     sudo -u jenkins lsof -i tcp:$jenkins_port && \
     lsof -i tcp:80 && \
     ruby --version | grep "2\.2\.5" && \
