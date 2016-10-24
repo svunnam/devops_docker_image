@@ -2,7 +2,7 @@
 ##
 ##  Install docker utility
 ##  Download docker image: denny/jenkins:v1
-##  Boot docker container: docker run -t -d -h jenkins --name my-jenkins --privileged -p 18080:18080 -p 18000:80 -p 9000:9000 denny/jenkins:v1 /usr/sbin/sshd -D
+##  Boot docker container: docker run -t -d -h jenkins --name my-jenkins --privileged -p 18080:18080 -p 18000:80 -p 9000:9000 denny/jenkins:v1 /bin/bash
 ##
 ##  Build Image From Dockerfile. docker build -f jenkins_v1.dockerfile -t denny/jenkins:v1 --rm=true .
 ##
