@@ -1,10 +1,10 @@
 ########## How To Use Docker Image ###############
 ##
 ##  Install docker utility
-##  Download docker image: denny/jenkins:v2
-##  Boot docker container: docker run -t -d -h jenkins --name my-jenkins --privileged -p 18080:18080 -p 18000:80 -p 9000:9000 denny/jenkins:v2 /bin/bash
+##  Download docker image: denny/jenkins:v3
+##  Boot docker container: docker run -t -d -h jenkins --name my-jenkins --privileged -p 18080:18080 -p 18000:80 -p 9000:9000 denny/jenkins:v3 /bin/bash
 ##
-##  Build Image From Dockerfile. docker build -f jenkins_v2.dockerfile -t denny/jenkins:v2 --rm=true .
+##  Build Image From Dockerfile. docker build -f jenkins_v3.dockerfile -t denny/jenkins:v3 --rm=true .
 ##
 ##   18080(Jenkins), 18000(Apache), 9000(sonar)
 ##
@@ -32,29 +32,15 @@
 ##     Built-in jenkins user: dennyzhang/DevOpsChangeMe1 devops.consultant@dennyzhang.com
 ##################################################
 
-FROM denny/jenkins:v1
+FROM denny/jenkins:v2
 ARG jenkins_port="18080"
 ARG jenkins_version="2.19"
 ARG jenkins_username="chefadmin"
 ARG jenkins_passwd="ChangeMe123"
 
 RUN service jenkins start && service apache2 start && \
-# Install SonarQube
-    mkdir -p /var/lib/jenkins/tool && \
-    cd /var/lib/jenkins/tool && \
-    wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-2.5.zip && \
-    unzip sonar-scanner-2.5.zip && rm -rf sonar-scanner-2.5.zip && \
-    cd /var/lib/jenkins/tool && \
-    wget https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-4.5.6.zip && \
-    unzip sonarqube-4.5.6.zip && rm -rf sonarqube-4.5.6.zip && \
-    chown jenkins:jenkins -R /var/lib/jenkins/tool && \
-
-# install shellcheck for code quality check for bash
-    apt-get install -y cabal-install && \
-    cabal update && \
-    # TODO: install fixed version for shellcheck
-    cabal install shellcheck && \
-    ln -s /root/.cabal/bin/shellcheck /usr/sbin/shellcheck && \
+# Install jenkins jobs
+    git clone git@github.com:DennyZhang/devops_jenkins.git && \
 
 ########################################################################################
 # Verify status
