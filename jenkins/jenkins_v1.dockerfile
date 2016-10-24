@@ -109,12 +109,12 @@ RUN apt-get -y update && \
    # reset admin password
    mkdir -p /var/lib/jenkins/users/chefadmin && \
    # TODO
-   wget -O /var/lib/jenkins/users/chefadmin/config.xml https://raw.githubusercontent.com/DennyZhang/devops_docker_image/raw/tag_v2/jenkins/reousrces/chefadmin_conf_xml && \
+   wget -O /var/lib/jenkins/users/chefadmin/config.xml https://raw.githubusercontent.com/DennyZhang/devops_docker_image/tag_v2/jenkins/resources/chefadmin_conf_xml && \
    chown -R jenkins:jenkins /var/lib/jenkins/users/ && \
 
    # Anonymous: Overall: Read; Job: Build/Cancel/Create/Delete/Read/Workspace
    # Update Jenkins global setting: enable security by default. Anonymous users can trigger jobs
-   wget -O /var/lib/jenkins/config.xml https://raw.githubusercontent.com/DennyZhang/devops_docker_image/raw/tag_v2/jenkins/reousrces/jenkins_conf_xml && \
+   wget -O /var/lib/jenkins/config.xml https://raw.githubusercontent.com/DennyZhang/devops_docker_image/tag_v2/jenkins/resources/jenkins_conf_xml && \
    chown -R jenkins:jenkins /var/lib/jenkins/config.xml && \
 
 # Configure jenkins ssh

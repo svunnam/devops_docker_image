@@ -68,16 +68,16 @@ RUN apt-get -y update && \
 
 # Download logstash conf file
    wget -O /opt/logstash/data_report.conf \
-        https://raw.githubusercontent.com/DennyZhang/devops_docker_image/raw/tag_v2/elk/reousrces/data_report.conf && \
+        https://raw.githubusercontent.com/DennyZhang/devops_docker_image/tag_v2/elk/resources/data_report.conf && \
    touch /var/log/data_report.log && \
 
 # Start services through supervisord
    wget -O /etc/supervisor/conf.d/elasticsearch.conf \
-        https://raw.githubusercontent.com/DennyZhang/devops_docker_image/raw/tag_v2/elk/reousrces/elasticsearch.conf && \
+        https://raw.githubusercontent.com/DennyZhang/devops_docker_image/tag_v2/elk/resources/elasticsearch.conf && \
    wget -O /etc/supervisor/conf.d/kibana.conf \
-        https://raw.githubusercontent.com/DennyZhang/devops_docker_image/raw/tag_v2/elk/reousrces/kibana.conf && \
+        https://raw.githubusercontent.com/DennyZhang/devops_docker_image/tag_v2/elk/resources/kibana.conf && \
    wget -O /etc/supervisor/conf.d/logstash.conf \
-        https://raw.githubusercontent.com/DennyZhang/devops_docker_image/raw/tag_v2/elk/reousrces/logstash.conf && \
+        https://raw.githubusercontent.com/DennyZhang/devops_docker_image/tag_v2/elk/resources/logstash.conf && \
 
 # Shutdown services
 
