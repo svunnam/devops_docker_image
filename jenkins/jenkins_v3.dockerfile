@@ -29,7 +29,7 @@
 ##       curl -v http://localhost:9000
 ##       ls -lth /var/lib/jenkins/tool
 ##
-##     Built-in jenkins user: dennyzhang/DevOpsChangeMe1 devops.consultant@dennyzhang.com
+##     Built-in jenkins user: chefadmin/ChangeMe123
 ##################################################
 
 FROM denny/jenkins:v2
@@ -40,7 +40,15 @@ ARG jenkins_passwd="ChangeMe123"
 
 RUN service jenkins start && service apache2 start && \
 # Install jenkins jobs
-    git clone git@github.com:DennyZhang/devops_jenkins.git && \
+    apt-get -y update && \
+    apt-get -yqq install git && \
+    mkdir -p /root/.ssh && \
+    > /root/.ssh/config && \
+    echo "Host github.com" >> /root/.ssh/config && \
+    echo "  User git" >> /root/.ssh/config && \
+    # echo "  IdentityFile /root/.ssh/github_id_rsa" >> /root/.ssh/config && \
+    echo "  StrictHostKeyChecking no" >> /root/.ssh/config && \
+    cd /tmp && git clone git@github.com:DennyZhang/devops_jenkins.git && \
 
 ########################################################################################
 # Verify status

@@ -29,7 +29,7 @@
 ##       curl -v http://localhost:9000
 ##       ls -lth /var/lib/jenkins/tool
 ##
-##     Built-in jenkins user: dennyzhang/DevOpsChangeMe1 devops.consultant@dennyzhang.com
+##     Built-in jenkins user: chefadmin/ChangeMe123
 ##################################################
 
 FROM denny/jenkins:v1
