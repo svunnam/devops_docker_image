@@ -51,7 +51,7 @@ RUN
     apt-get install --no-install-recommends -y supervisor && \
     # TODO: change to better way
     echo '#!/bin/bash -e' > /root/start_apache_foreground.sh && \
-    echo "cd /etc/apache2/ && apachectl -d . -e info -DFOREGROUND" >> /root/start_apache_foreground.sh && \
+    echo "cd /etc/apache2/ && apachectl -d /etc/apache2 -e info -DFOREGROUND" >> /root/start_apache_foreground.sh && \
     chmod o+x /root/start_apache_foreground.sh && \
 
     # supervisor manage apache2
