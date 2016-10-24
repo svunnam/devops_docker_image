@@ -56,7 +56,7 @@ RUN service jenkins start && service apache2 start && \
     gem list bundle | grep "0\.0\.1" && \
     rubocop --version | grep "0\.44\.1" && \
     foodcritic --version | grep "8\.0\.0" && \
-    shellcheck --version | grep "0\.4\.4" && \
+    shellcheck --version | grep "0\.4" && \
     test -f /var/lib/jenkins/jobs/CommonServerCheck/config.xml && \
 
 # Stop services
