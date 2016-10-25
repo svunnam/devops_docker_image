@@ -14,24 +14,25 @@
     <permission>hudson.model.Computer.Disconnect:chefadmin</permission>
     <permission>hudson.model.Hudson.Administer:chefadmin</permission>
     <permission>hudson.model.Hudson.ConfigureUpdateCenter:chefadmin</permission>
-    <permission>hudson.model.Hudson.Read:anonymous</permission>
     <permission>hudson.model.Hudson.Read:chefadmin</permission>
+    <permission>hudson.model.Hudson.Read:demo</permission>
     <permission>hudson.model.Hudson.RunScripts:chefadmin</permission>
     <permission>hudson.model.Hudson.UploadPlugins:chefadmin</permission>
-    <permission>hudson.model.Item.Build:anonymous</permission>
     <permission>hudson.model.Item.Build:chefadmin</permission>
-    <permission>hudson.model.Item.Cancel:anonymous</permission>
+    <permission>hudson.model.Item.Build:demo</permission>
     <permission>hudson.model.Item.Cancel:chefadmin</permission>
+    <permission>hudson.model.Item.Cancel:demo</permission>
     <permission>hudson.model.Item.Configure:chefadmin</permission>
-    <permission>hudson.model.Item.Create:anonymous</permission>
+    <permission>hudson.model.Item.Configure:demo</permission>
     <permission>hudson.model.Item.Create:chefadmin</permission>
-    <permission>hudson.model.Item.Delete:anonymous</permission>
+    <permission>hudson.model.Item.Create:demo</permission>
     <permission>hudson.model.Item.Delete:chefadmin</permission>
+    <permission>hudson.model.Item.Delete:demo</permission>
     <permission>hudson.model.Item.Discover:chefadmin</permission>
-    <permission>hudson.model.Item.Read:anonymous</permission>
     <permission>hudson.model.Item.Read:chefadmin</permission>
-    <permission>hudson.model.Item.Workspace:anonymous</permission>
+    <permission>hudson.model.Item.Read:demo</permission>
     <permission>hudson.model.Item.Workspace:chefadmin</permission>
+    <permission>hudson.model.Item.Workspace:demo</permission>
     <permission>hudson.model.Run.Delete:chefadmin</permission>
     <permission>hudson.model.Run.Update:chefadmin</permission>
     <permission>hudson.model.View.Configure:chefadmin</permission>

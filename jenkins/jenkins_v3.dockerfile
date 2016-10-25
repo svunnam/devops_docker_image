@@ -43,6 +43,15 @@ RUN apt-get -y update && \
     cd /tmp && git clone https://github.com/DennyZhang/devops_jenkins.git && \
     cp -r /tmp/devops_jenkins/* /var/lib/jenkins/jobs/ && \
     chown jenkins:jenkins -R /var/lib/jenkins/jobs/ && \
+
+   # Create Jenkins demo user
+   mkdir -p /var/lib/jenkins/users/demo && \
+   wget -O /var/lib/jenkins/users/demo/config.xml https://raw.githubusercontent.com/DennyZhang/devops_docker_image/tag_v2/jenkins/resources/demo_conf_xml && \
+   chown -R jenkins:jenkins /var/lib/jenkins/users/demo && \
+
+   # Update Jenkins global setting
+   wget -O /var/lib/jenkins/config.xml https://raw.githubusercontent.com/DennyZhang/devops_docker_image/tag_v2/jenkins/resources/jenkins_conf_xml && \
+
 # TODO: use ThinBackup to perform backup and restore: create view
 
 # TODO: fix all possible failures
