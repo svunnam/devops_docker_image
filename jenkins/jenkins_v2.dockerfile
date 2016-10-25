@@ -56,6 +56,8 @@ RUN service jenkins start && service apache2 start && \
     cabal install shellcheck && \
     ln -s /root/.cabal/bin/shellcheck /usr/sbin/shellcheck && \
 
+# Install pylint
+    pip install pylint && \
 ########################################################################################
 # Verify status
     dpkg -l jenkins | grep "$jenkins_version" && \
