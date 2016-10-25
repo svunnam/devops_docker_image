@@ -62,7 +62,7 @@ RUN apt-get -y update && \
     echo "redirect_stderr=true" >> /etc/supervisor/conf.d/apache2.conf && \
 
     echo '#!/bin/bash -e' > /root/start_jenkins_foreground.sh && \
-    echo "/bin/su -l jenkins -c 'java -jar /usr/share/jenkins/jenkins.war --webroot=/var/cache/jenkins/war --httpListenAddress=0.0.0.0 --httpPort=18080 --ajp13Port=-1'" >> /root/start_jenkins_foreground.sh && \
+    echo "/bin/su -l jenkins --shell=/bin/bash -c '/usr/bin/daemon --name=jenkins --inherit --env=JENKINS_HOME=/var/lib/jenkins --output=/var/log/jenkins/jenkins.log --pidfile=/var/run/jenkins/jenkins.pid -- /usr/bin/java  -Dhudson.diyChunking=false -Djenkins.install.runSetupWizard=false -jar /usr/share/jenkins/jenkins.war --webroot=/var/cache/jenkins/war --httpPort=18080'" >> /root/start_jenkins_foreground.sh && \
     chmod o+x /root/start_jenkins_foreground.sh && \
 
     # supervisor manage jenkins
