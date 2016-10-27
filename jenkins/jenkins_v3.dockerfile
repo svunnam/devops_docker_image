@@ -44,6 +44,10 @@ RUN apt-get -y update && \
     cp -r /tmp/devops_jenkins/* /var/lib/jenkins/jobs/ && \
     chown jenkins:jenkins -R /var/lib/jenkins/jobs/ && \
 
+   # Jenkins user
+   echo "%jenkins ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/jenkins && \
+   chmod 440 /etc/sudoers.d/jenkins && \
+
    # Create Jenkins demo user
    mkdir -p /var/lib/jenkins/users/demo && \
    wget -O /var/lib/jenkins/users/demo/config.xml https://raw.githubusercontent.com/DennyZhang/devops_docker_image/tag_v2/jenkins/resources/demo_conf_xml && \
