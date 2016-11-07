@@ -40,6 +40,10 @@ ARG jenkins_version="2.19"
 RUN apt-get -y update && \
     apt-get -yqq install git && \
 
+    # install sshd
+    apt-get install -y openssh-server && \
+    mkdir -p /root/.ssh/ && \
+
     cd /tmp && git clone https://github.com/DennyZhang/devops_jenkins.git && \
     cp -r /tmp/devops_jenkins/* /var/lib/jenkins/jobs/ && \
     chown jenkins:jenkins -R /var/lib/jenkins/jobs/ && \
