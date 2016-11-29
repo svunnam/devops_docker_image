@@ -40,6 +40,7 @@ ARG jenkins_version="2.19"
 RUN apt-get -y update && \
     apt-get -yqq install git && \
 
+    apt-get install -y bc && \
     # install sshd
     apt-get install -y openssh-server && \
     mkdir -p /root/.ssh/ && \
