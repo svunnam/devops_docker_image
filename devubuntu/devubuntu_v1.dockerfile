@@ -1,5 +1,6 @@
 ########## How To Use Docker Image ###############
 ##
+##  Image Name: denny/devubuntu:v1
 ##  Install docker utility
 ##  Download docker image: docker pull denny/devubuntu:v1
 ##  Boot docker container: docker run -t -d denny/devubuntu:v1 /usr/sbin/sshd -D
