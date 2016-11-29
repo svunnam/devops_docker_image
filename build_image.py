@@ -6,7 +6,7 @@
 ## Description :
 ## --
 ## Created : <2016-04-24>
-## Updated: Time-stamp: <2016-11-29 20:38:46>
+## Updated: Time-stamp: <2016-11-29 20:39:23>
 ##-------------------------------------------------------------------
 import argparse, os
 import subprocess, sys
@@ -23,7 +23,7 @@ def get_dockerfile_list(docker_list_file):
     with open(docker_list_file, 'r') as list_file:
         for row in list_file:
             row = row.strip()
-            if row.startswith("#"):
+            if row.startswith("#") or row == "":
                 continue
             else:
                 docker_list.append(row)
