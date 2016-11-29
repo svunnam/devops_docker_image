@@ -6,7 +6,7 @@
 ## Description :
 ## --
 ## Created : <2016-04-24>
-## Updated: Time-stamp: <2016-11-29 20:36:40>
+## Updated: Time-stamp: <2016-11-29 20:38:46>
 ##-------------------------------------------------------------------
 import argparse, os
 import subprocess, sys
@@ -57,7 +57,7 @@ def get_image_name_by_fname(docker_file):
     # Dockerfile contains: ##  Image Name: denny/java:v1.0
     image_name = ""
     if os.path.exists(docker_file) is False:
-        print "%s ERROR: file doesn't exist" % (docker_file)
+        print "%s ERROR: file(%s) doesn't exist" % (docker_file)
         sys.exit(1)
 
     with open(docker_file, 'r') as f:
