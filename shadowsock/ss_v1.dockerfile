@@ -1,5 +1,6 @@
 ########## How To Use Docker Image ###############
 ##
+##  Image Name: denny/ss:v1
 ##  Install docker utility
 ##  Download docker image: docker pull denny/ss:v1
 ##  Build Image From Dockerfile. docker build -f ss_v1.dockerfile -t denny/ss:v1 --rm=true .
