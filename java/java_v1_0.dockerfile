@@ -1,5 +1,6 @@
 ########## How To Use Docker Image ###############
 ##
+##  Image Name: denny/java:v1.0
 ##  Install docker utility
 ##  Download docker image: docker pull denny/java:v1.0
 ##  Start container: docker run -t -P -d --name my-test denny/java:v1.0 /bin/bash
