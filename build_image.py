@@ -6,7 +6,7 @@
 ## Description :
 ## --
 ## Created : <2016-11-24>
-## Updated: Time-stamp: <2016-11-29 17:57:19>
+## Updated: Time-stamp: <2016-11-29 18:54:23>
 ##-------------------------------------------------------------------
 import argparse, os
 import subprocess, sys
@@ -35,6 +35,9 @@ def get_dockerfile_list(docker_list_file):
     return docker_list
 
 def build_docker_image(docker_file, image_name):
+    dir_path = os.path.dirname(docker_file)
+    os.chdir(dir_path)
+
     command = "docker build -f %s -t %s --rm=true ." % (docker_file, image_name)
     print "%s Run: %s" % (PREFIX_KEY_MSG, command)
     p = subprocess.Popen(command, shell=True, stderr=subprocess.PIPE)
@@ -67,18 +70,6 @@ def get_image_name_by_fname(docker_file):
     return image_name
 
 if __name__ == '__main__':
-    # Sample: python ./build_image.py --docker_file_folder .
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--docker_file_folder', default='',
-                        required=False, help="Folder for dockerfile", type=str)
-    l = parser.parse_args()
-
-    # Switch the right folder for docker build
-    docker_file_folder = l.docker_file_folder
-    if docker_file_folder == "":
-        docker_file_folder = os.path.dirname(os.path.realpath(__file__))
-    os.chdir(docker_file_folder)
-
     # Get docker file list
     docker_file_list = get_dockerfile_list(DOCKER_LIST_FILE)
 
