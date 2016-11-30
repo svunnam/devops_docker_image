@@ -7,7 +7,7 @@
 ##  Build Image From Dockerfile. docker build -f docker_v1_0.dockerfile -t denny/docker:v1.0 --rm=true .
 ##################################################
 FROM ubuntu:14.04
-MAINTAINER TOTVS Labs <denny@dennyzhang.com>
+MAINTAINER DennyZhang.com <denny@dennyzhang.com>
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG docker_version="1.12.1"
