@@ -5,7 +5,7 @@
 ##  Download docker image: docker pull denny/java:v1.0
 ##  Start container: docker run -t -P -d --name my-test denny/java:v1.0 /bin/bash
 ##
-##  Build Image From Dockerfile. docker build -f Dockerfile_java_v1_0 -t denny/java:v1.0 --rm=true .
+##  Build Image From Dockerfile. docker build -f java_v1_0.dockerfile -t denny/java:v1.0 --rm=true .
 ##################################################
 FROM ubuntu:14.04
 MAINTAINER Denny <http://dennyzhang.com>
