@@ -19,8 +19,8 @@
 ##    0 0 1 * * find /home/myftp -mtime +30 -and -not -type d -delete
 ##################################################
 
-# Base image: https://hub.docker.com/r/bluefoxicy/proftpd/~/dockerfile/
-FROM bluefoxicy/proftpd:latest
+# Base image: https://hub.docker.com/r/andrewvos/docker-proftpd/~/dockerfile/
+FROM andrewvos/docker-proftpd
 MAINTAINER DennyZhang.com <http://dennyzhang.com>
 
 ########################################################################################
