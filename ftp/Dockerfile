@@ -1,20 +1,25 @@
 ########## How To Use Docker Image ###############
 ##
 ##  Install docker utility
-##  Download docker image: docker pull denny/ftp:latest
-##  Boot docker container: docker run -t -d -h mytest --name my-test --privileged -p 61031:21 -p 61034:22 denny/ftp:latest /usr/sbin/sshd -D
+##  Download docker image: docker pull denny/proftproftpd:v1
+##  Boot docker container:
 ##
+##    Change pasv_address to correct ip address
 ##    ps -ef | grep vsftpd
 ##    nohup /usr/sbin/vsftpd &
 ##    lsof -i tcp:21
 ##    tail /var/log/vsftpd.log
+##    ls -lth /home/myftp
+##    cat /etc/vsftpd.conf
 ##    ftp 127.0.0.1
 ##     ftp credential: myftp/XXXX
+##    ps -ef | grep cron
+##    crontab -l
+##    0 0 1 * * find /home/myftp -mtime +30 -and -not -type d -delete
 ##################################################
 
-FROM denny/ftp:v1
+# Base image: https://hub.docker.com/r/bluefoxicy/proftpd/~/dockerfile/
+FROM bluefoxicy/proftpd:latest
 MAINTAINER DennyZhang.com <http://dennyzhang.com>
 
-########################################################################################
-sudo passwd myftp
 ########################################################################################
