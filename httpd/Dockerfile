@@ -7,8 +7,8 @@
 ##
 ##################################################
 
-# Base image: https://hub.docker.com/_/httpd/
-FROM httpd:2.4
+# Base image: https://hub.docker.com/_/php/
+FROM php:5-apache
 MAINTAINER DennyZhang.com <http://dennyzhang.com>
 
 RUN apt-get -y update && \
