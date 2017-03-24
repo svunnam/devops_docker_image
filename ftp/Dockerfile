@@ -1,8 +1,8 @@
 ########## How To Use Docker Image ###############
 ##
 ##  Install docker utility
-##  Download docker image: docker pull denny/proftproftpd:v1
-##  Build docker image: docker build -f Dockerfile -t denny/proftproftpd:v1 --rm=true .
+##  Download docker image: docker pull denny/proftpd:v1
+##  Build docker image: docker build -f Dockerfile -t denny/proftpd:v1 --rm=true .
 ##  Boot docker container:
 ##
 ##    Change pasv_address to correct ip address
