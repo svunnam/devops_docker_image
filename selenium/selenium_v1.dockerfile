@@ -3,6 +3,7 @@
 ##  Image Name: denny/selenium:v1
 ##
 ##  Dockerfile: https://github.com/DennyZhang/devops_docker_image/blob/master/selenium/selenium_v1.dockerfile
+##  Docker hub link: 
 ##
 ##  Build docker image locally
 ##    docker build --no-cache -t denny/selenium:v1 -f selenium_v1.dockerfile --rm=true .
@@ -28,17 +29,20 @@ ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v5/python/sel
 
 # install selenium python sdk
 RUN apt-get -y update && apt-get install -y --no-install-recommends python python-pip && \
+    chmod 777 /home/seluser/selenium_load_page.py && \
 
 # Download seleinum page load test scripts
-    pip install selenium=3.4.0 && \
+    pip install selenium==3.4.0 && \
 
 # Cleanup to make image small
-apt-get -y remove && apt-get -y autoremove && \
+apt-get -y remove && apt-get -y autoremove && rm -rf /var/cache/apk/* && \
 
 # Verify docker image
-   python --version | grep 2.7.12 && \
+   python --version 2>&1 | grep 2.7.12 && \
    pip --version | grep 8.1.1 && \
    pip list | grep selenium.*3.4.0
 
 # Switch back to normal OS user
 USER seluser
+
+WORKDIR /home/seluser
