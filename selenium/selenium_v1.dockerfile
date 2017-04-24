@@ -2,6 +2,8 @@
 ##
 ##  Image Name: denny/selenium:v1
 ##
+##  Dockerfile: https://github.com/DennyZhang/devops_docker_image/blob/master/selenium/selenium_v1.dockerfile
+##
 ##  Build docker image locally
 ##    docker build --no-cache -t denny/selenium:v1 -f selenium_v1.dockerfile --rm=true .
 ##
