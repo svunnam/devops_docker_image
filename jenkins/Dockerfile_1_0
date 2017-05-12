@@ -15,8 +15,6 @@ LABEL maintainer "Denny<denny@dennyzhang.com>"
 # Install thinbackup plugin
 user root
 
-# TODO: enable serverspec check
-
 # Install jenkins plugins
 RUN /usr/local/bin/install-plugins.sh structs && \
     /usr/local/bin/install-plugins.sh credentials && \
@@ -27,7 +25,16 @@ RUN /usr/local/bin/install-plugins.sh structs && \
     /usr/local/bin/install-plugins.sh thinBackup && \
     /usr/local/bin/install-plugins.sh slack && \
     /usr/local/bin/install-plugins.sh timestamper && \
-    /usr/local/bin/install-plugins.sh git
+    /usr/local/bin/install-plugins.sh git && \
+
+# Install serverspec
+    apt-get -y update && apt-get install -y --no-install-recommends ruby rake && \
+    echo "gem: --no-rdoc --no-ri" >> /etc/gemrc && \
+    gem install serverspec && \
+
+# Verify docker image
+    ruby --version | grep "2.1.5" && gem --version | grep "2.2.2" && \
+    rake --version | grep "10.3.2" && gem list serverspec | grep "2.38.1"
 
 WORKDIR /var/jenkins_home
 user jenkins
