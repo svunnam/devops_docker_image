@@ -3,7 +3,7 @@
 ##  Image Name: denny/jenkins:1.0
 ##  Git link: https://github.com/DennyZhang/devops_docker_image/blob/tag_v5/jenkins/Dockerfile_1_0
 ##  Docker hub link:
-##  Build docker image:
+##  Build docker image: docker build --no-cache -f Dockerfile_1_0 -t denny/jenkins:1.0 --rm=true .
 ##  Description: Manage via Jenkins GUI
 ##################################################
 # Base Docker image: https://hub.docker.com/_/jenkins/
