@@ -31,6 +31,8 @@ RUN /usr/local/bin/install-plugins.sh structs && \
     apt-get -y update && apt-get install -y --no-install-recommends ruby rake && \
     echo "gem: --no-rdoc --no-ri" >> /etc/gemrc && \
     gem install serverspec && \
+    # TODO: avoid put jenkins scripts to /var/lib/devops
+    mkdir -p /var/lib/devops/ && chmod 755 /var/lib/devops/ && \
 
 # Verify docker image
     ruby --version | grep "2.1.5" && gem --version | grep "2.2.2" && \
