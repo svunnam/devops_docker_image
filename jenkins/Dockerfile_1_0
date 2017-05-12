@@ -1,7 +1,7 @@
 ########## How To Use Docker Image ###############
 ##
 ##  Image Name: denny/jenkins:1.0
-##  Git link:
+##  Git link: https://github.com/DennyZhang/devops_docker_image/blob/tag_v5/jenkins/Dockerfile_1_0
 ##  Docker hub link:
 ##  Build docker image:
 ##  Description: Manage via Jenkins GUI
