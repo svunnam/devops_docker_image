@@ -15,7 +15,11 @@ FROM codacy/codacy-pylint:1.0.121
 
 LABEL maintainer "Denny<denny@dennyzhang.com>"
 
+user root
+
 ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v5/python/enforce_pylint_check/enforce_pylint_check.py \
     /enforce_pylint_check.py
+
+RUN chmod o+x /*.py
 
 ENTRYPOINT ["/bin/bash"]
