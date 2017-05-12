@@ -40,6 +40,7 @@ RUN /usr/local/bin/install-plugins.sh structs && \
 
 WORKDIR /var/jenkins_home
 user jenkins
-RUN mkdir /var/jenkins_home/tmp/  /var/jenkins_home/scripts
+RUN mkdir /var/jenkins_home/tmp/ /var/jenkins_home/scripts
+# TODO: make sure the scripts are always up-to-date by using some package wrapper
 COPY https://raw.githubusercontent.com/TOTVS/mdmpublic/tag_v5/jenkins_scripts/monitor/serverspec_check.sh \
      /var/jenkins_home/scripts/serverspec_check.sh 
