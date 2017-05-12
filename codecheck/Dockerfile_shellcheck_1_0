@@ -18,3 +18,5 @@ LABEL maintainer "Denny<denny@dennyzhang.com>"
 ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v5/python/enforce_shellcheck/enforce_shellcheck.py /enforce_shellcheck.py
 
 RUN apk add --update python
+
+ENTRYPOINT ["/bin/bash"]

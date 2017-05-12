@@ -5,7 +5,7 @@
 ##  Docker hub link:
 ##  Build docker image: docker build --no-cache -f Dockerfile_pylint_1_0 -t denny/pylint:1.0 --rm=true .
 ##  How to use: TODO
-##      docker run -v code
+##      docker run -d -v . /code pylint denny/pylint:1.0 python /enforce_pylint.py --code_dir /code --check_ignore_file ci/.shellignore1
 ##      docker exec -it pylint python /enforce_pylint.py --code_dir . --check_ignore_file ci/.shellignore
 ##  Description: Enforce pylint check for python scripts
 ##################################################
@@ -17,3 +17,5 @@ LABEL maintainer "Denny<denny@dennyzhang.com>"
 
 ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v5/python/enforce_pylint_check/enforce_pylint_check.py \
     /enforce_pylint_check.py
+
+ENTRYPOINT ["/bin/bash"]
