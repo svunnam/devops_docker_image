@@ -4,9 +4,9 @@
 ##  Git link: https://github.com/DennyZhang/devops_docker_image/blob/tag_v5/codecheck/Dockerfile_shellcheck_1_0
 ##  Docker hub link:
 ##  Build docker image: docker build --no-cache -f Dockerfile_shellcheck_1_0 -t denny/shellcheck:1.0 --rm=true .
-##  How to use: TODO
-##      docker run -v code
-##      docker exec -it shellcheck python /enforce_shellcheck.py --code_dir . --check_ignore_file ci/.shellignore
+##  How to use
+##      docker run -t -d --privileged -v ${code_dir}:/code --name shellcheck --entrypoint=/bin/bash denny/shellcheck:1.0
+##      docker exec -it shellcheck python /enforce_shellcheck.py --code_dir /code --check_ignore_file /.shellcheck_ignore
 ##  Description: http://www.dennyzhang.com/shellcheck/
 ##################################################
 # Base Docker image: https://hub.docker.com/r/koalaman/shellcheck/tags/
