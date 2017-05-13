@@ -4,18 +4,18 @@
 ## Licensed under MIT 
 ##   https://raw.githubusercontent.com/DennyZhang/devops_public/master/LICENSE
 ##
-## File : docker_shellcheck.sh
+## File : docker_pylint.sh
 ## Author : Denny <denny@dennyzhang.com>
 ## Description :
 ## --
 ## Created : <2017-05-12>
-## Updated: Time-stamp: <2017-05-12 23:05:21>
+## Updated: Time-stamp: <2017-05-12 23:06:12>
 ##-------------------------------------------------------------------
 code_dir=${1?""}
 ignore_file_list=${2-""}
 
-image_name="denny/shellcheck:1.0"
-check_filename="/enforce_shellcheck.py"
+image_name="denny/pylint:1.0"
+check_filename="/enforce_pylint.py"
 
 current_filename=$(basename "$0")
 test_id="${current_filename%.sh}_$$"
@@ -60,4 +60,4 @@ docker cp "/tmp/$ignore_file" "$container_name:/$ignore_file"
 
 echo "Run code check"
 docker exec -t "$container_name" python "$check_filename" --code_dir /code --check_ignore_file "/${ignore_file}"
-## File : docker_shellcheck.sh ends
+## File : docker_pylint.sh ends
