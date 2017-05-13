@@ -9,7 +9,7 @@
 ## Description :
 ## --
 ## Created : <2017-05-12>
-## Updated: Time-stamp: <2017-05-12 23:01:10>
+## Updated: Time-stamp: <2017-05-12 23:02:28>
 ##-------------------------------------------------------------------
 code_dir=${1?""}
 container_name=${2?""}
@@ -18,6 +18,7 @@ ignore_file_list=${4-""}
 
 current_filename=$(basename "$0")
 ignore_file="${current_filename%.sh}_$$"
+check_filename="/enforce_pylint_check.py"
 
 function remove_container() {
     container_name=${1?}
@@ -55,6 +56,6 @@ docker run -t -d --privileged -v "${code_dir}:/code" --name "$container_name" --
 echo "Copy ignore file"
 docker cp "/tmp/$ignore_file" "$container_name:/$ignore_file"
 
-echo "Run pylint check"
-docker exec -t "$container_name" python /enforce_pylint_check.py --code_dir /code --check_ignore_file "/${ignore_file}"
+echo "Run code check"
+docker exec -t "$container_name" python "$check_filename" --code_dir /code --check_ignore_file "/${ignore_file}"
 ## File : docker_shellcheck.sh ends
