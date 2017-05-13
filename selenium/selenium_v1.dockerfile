@@ -2,7 +2,7 @@
 ##
 ##  Image Name: denny/selenium:v1
 ##
-##  Dockerfile: https://github.com/DennyZhang/devops_docker_image/blob/master/selenium/selenium_v1.dockerfile
+##  Dockerfile: selenium_v1.dockerfile
 ##  Docker hub link: 
 ##
 ##  Build docker image locally
@@ -28,7 +28,8 @@ ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v5/python/sel
     /home/seluser/selenium_load_page.py
 
 # install selenium python sdk
-RUN apt-get -y update && apt-get install -y --no-install-recommends python python-pip && \
+RUN apt-get -y update && apt-get install -y --no-install-recommends curl && \
+    apt-get install -y --no-install-recommends python python-pip && \
     chmod 777 /home/seluser/selenium_load_page.py && \
 
 # Download seleinum page load test scripts
