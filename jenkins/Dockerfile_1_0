@@ -15,10 +15,6 @@ LABEL maintainer "Denny<denny@dennyzhang.com>"
 # Install thinbackup plugin
 user root
 
-# TODO: make sure the scripts are always up-to-date by using some package wrapper
-ADD https://raw.githubusercontent.com/TOTVS/mdmpublic/tag_v5/jenkins_scripts/monitor/serverspec_check.sh \
-     /usr/sbin/serverspec_check.sh
-
 # Disable ssh host key check
 ADD ssh_config /etc/ssh/ssh_config
 
@@ -39,10 +35,7 @@ RUN /usr/local/bin/install-plugins.sh structs && \
     echo "gem: --no-rdoc --no-ri" >> /etc/gemrc && \
     gem install serverspec && \
     # Install basic packages
-    apt-get install -y --no-install-recommends vim && \
-    # TODO: avoid put jenkins scripts to /var/lib/devops
-    mkdir -p /var/lib/devops/ && chmod 755 /var/lib/devops/ && \
-    chmod 755 /usr/sbin/serverspec_check.sh
+    apt-get install -y --no-install-recommends vim
 
 user jenkins
 
@@ -51,4 +44,4 @@ WORKDIR /var/jenkins_home
 # Verify docker image
 RUN ruby --version | grep "2.1.5" && gem --version | grep "2.2.2" && \
     rake --version | grep "10.3.2" && gem list serverspec | grep "2.38.1" && \
-    which vim && test -f /usr/sbin/serverspec_check.sh
+    which vim
