@@ -40,7 +40,7 @@ user jenkins
 
 RUN mkdir /var/jenkins_home/scripts && mkdir /var/jenkins_home/tmp/ && \
     mkdir /var/jenkins_home/.ssh && \
-   echo -e "Host *\n   StrictHostKeyChecking no\n   UserKnownHostsFile=/dev/null" > /var/jenkins_home/.ssh/config
+    echo -e "Host *\n   StrictHostKeyChecking no\n   UserKnownHostsFile=/dev/null" > /var/jenkins_home/.ssh/config
 
 # TODO: make sure the scripts are always up-to-date by using some package wrapper
 ADD https://raw.githubusercontent.com/TOTVS/mdmpublic/tag_v5/jenkins_scripts/monitor/serverspec_check.sh \
@@ -48,4 +48,5 @@ ADD https://raw.githubusercontent.com/TOTVS/mdmpublic/tag_v5/jenkins_scripts/mon
 
 # Verify docker image
 RUN ruby --version | grep "2.1.5" && gem --version | grep "2.2.2" && \
-    rake --version | grep "10.3.2" && gem list serverspec | grep "2.38.1"
+    rake --version | grep "10.3.2" && gem list serverspec | grep "2.38.1" && \
+    ls -lth /var/jenkins_home
