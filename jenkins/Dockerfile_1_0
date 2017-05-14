@@ -15,6 +15,13 @@ LABEL maintainer "Denny<denny@dennyzhang.com>"
 # Install thinbackup plugin
 user root
 
+# TODO: make sure the scripts are always up-to-date by using some package wrapper
+ADD https://raw.githubusercontent.com/TOTVS/mdmpublic/tag_v5/jenkins_scripts/monitor/serverspec_check.sh \
+     /usr/sbin/serverspec_check.sh
+
+# Disable ssh host key check
+ADD ssh_config /etc/ssh/ssh_config
+
 # Install jenkins plugins
 RUN /usr/local/bin/install-plugins.sh structs && \
     /usr/local/bin/install-plugins.sh credentials && \
@@ -34,16 +41,8 @@ RUN /usr/local/bin/install-plugins.sh structs && \
     # Install basic packages
     apt-get install -y --no-install-recommends vim && \
     # TODO: avoid put jenkins scripts to /var/lib/devops
-    mkdir -p /var/lib/devops/ && chmod 755 /var/lib/devops/
-
-RUN mkdir -p /var/jenkins_home/scripts && \
-    mkdir -p /var/jenkins_home/.ssh && \
-    echo -e "Host *\n   StrictHostKeyChecking no\n   UserKnownHostsFile=/dev/null" > /var/jenkins_home/.ssh/config && \
-    chown jenkins:jenkins -R /var/jenkins_home/
-
-# TODO: make sure the scripts are always up-to-date by using some package wrapper
-ADD https://raw.githubusercontent.com/TOTVS/mdmpublic/tag_v5/jenkins_scripts/monitor/serverspec_check.sh \
-     /var/jenkins_home/scripts/serverspec_check.sh 
+    mkdir -p /var/lib/devops/ && chmod 755 /var/lib/devops/ && \
+    chmod 755 /usr/sbin/serverspec_check.sh
 
 user jenkins
 
@@ -52,5 +51,4 @@ WORKDIR /var/jenkins_home
 # Verify docker image
 RUN ruby --version | grep "2.1.5" && gem --version | grep "2.2.2" && \
     rake --version | grep "10.3.2" && gem list serverspec | grep "2.38.1" && \
-    which vim && \
-    ls -ltha /var/jenkins_home
+    which vim && test -f /usr/sbin/serverspec_check.sh
