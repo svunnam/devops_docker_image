@@ -42,7 +42,7 @@ WORKDIR /var/jenkins_home
 
 user jenkins
 
-RUN mkdir /var/jenkins_home/tmp/ /var/jenkins_home/scripts /var/jenkins_home/tmp/ && \
+RUN mkdir /var/jenkins_home/scripts /var/jenkins_home/tmp/ && \
    echo -e "Host *\n   StrictHostKeyChecking no\n   UserKnownHostsFile=/dev/null" > /var/jenkins_home/.ssh/config
 
 # TODO: make sure the scripts are always up-to-date by using some package wrapper
