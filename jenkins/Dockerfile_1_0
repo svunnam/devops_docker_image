@@ -42,7 +42,7 @@ RUN /usr/local/bin/install-plugins.sh structs && \
 # Install python
     apt-get install -y --no-install-recommends python-pip && \
     pip install GitPython && \
-    chown jenkins:jenkins /var/jenkins_home/.gitconfig
+    chown jenkins:jenkins /var/jenkins_home/.gitconfig && \
     # Install basic packages
     apt-get install -y --no-install-recommends vim
 
@@ -51,6 +51,6 @@ user jenkins
 WORKDIR /var/jenkins_home
 
 # Verify docker image
-    ruby --version | grep "2.1.5" && gem --version | grep "2.2.2" && \
+RUN ruby --version | grep "2.1.5" && gem --version | grep "2.2.2" && \
     rake --version | grep "10.3.2" && gem list serverspec | grep "2.38.1" && \
     which vim
