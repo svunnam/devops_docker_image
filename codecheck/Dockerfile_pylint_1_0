@@ -21,7 +21,12 @@ WORKDIR /
 ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v5/python/enforce_pylint_check/enforce_pylint.py \
     /enforce_pylint.py
 
-RUN chmod o+x /*.py && easy_install pip && \
+
+RUN chmod o+x /*.py && \
+    # enable python3
+    rm -rf /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python && \
+    easy_install pip && \
+    rm -rf /usr/bin/pip && ln -s /usr/bin/pip3 /usr/bin/pip && \
     # Install packages required cryptography pip package
     apk add --update alpine-sdk && \
     apk add --update python-dev py-pip gcc && \
@@ -30,6 +35,11 @@ RUN chmod o+x /*.py && easy_install pip && \
     apk add --update openssl-dev && \
 
 # Cleanup
-    rm -rf /var/cache/apk/*
+    rm -rf /var/cache/apk/* && \
+
+# verify
+   python --version && pip --version && \
+   python --version | grep "3.5.1" && \
+   pip --version | grep "9.0.1"
 
 ENTRYPOINT ["/bin/bash"]
