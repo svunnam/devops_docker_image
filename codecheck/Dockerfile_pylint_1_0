@@ -21,6 +21,13 @@ WORKDIR /
 ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v5/python/enforce_pylint_check/enforce_pylint.py \
     /enforce_pylint.py
 
-RUN chmod o+x /*.py && easy_install pip
+RUN chmod o+x /*.py && easy_install pip && \
+    # Install packages required cryptography pip package
+    apk add --update python-dev py-pip gcc && \
+    apk add --update libffi-dev && \
+    apk add --update openssl-dev && \
+
+# Cleanup
+    rm -rf /var/cache/apk/*
 
 ENTRYPOINT ["/bin/bash"]
