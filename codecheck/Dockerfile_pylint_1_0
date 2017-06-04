@@ -25,14 +25,14 @@ ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v5/python/enf
 RUN chmod o+x /*.py && \
     # enable python3
     rm -rf /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python && \
-    easy_install pip && \
     rm -rf /usr/bin/pip && ln -s /usr/bin/pip3 /usr/bin/pip && \
     # Install packages required cryptography pip package
     apk add --update alpine-sdk && \
-    apk add --update python-dev py-pip gcc && \
+    apk add --update python-dev python3-dev py-pip gcc && \
     apk add --update libffi-dev && \
     apk add --update linux-headers && \
     apk add --update openssl-dev && \
+    easy_install pip && \
 
 # Cleanup
     rm -rf /var/cache/apk/* && \
