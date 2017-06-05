@@ -38,7 +38,7 @@ RUN /usr/local/bin/install-plugins.sh structs && \
 # Install serverspec
     apt-get -y update && apt-get install -y --no-install-recommends ruby rake && \
     echo "gem: --no-rdoc --no-ri" >> /etc/gemrc && \
-    gem install serverspec && chmod 755 /usr/sbin/run_serverspec.sh && \
+    gem install serverspec -v 2.39.1 && chmod 755 /usr/sbin/run_serverspec.sh && \
 
 # Install python
     apt-get install -y --no-install-recommends python-pip && \
@@ -54,5 +54,5 @@ WORKDIR /var/jenkins_home
 # Verify docker image
 RUN ruby --version && rake --version && gem list server && gem --version && \
     ruby --version | grep "2.1.5" && gem --version | grep "2.2.2" && \
-    rake --version | grep "10.3.2" && gem list serverspec | grep "2.38.1" && \
+    rake --version | grep "10.3.2" && gem list serverspec | grep "2.39.1" && \
     which vim
