@@ -4,6 +4,7 @@
 ##  Git link: https://github.com/DennyZhang/devops_docker_image/blob/tag_v5/jenkins/Dockerfile_1_0
 ##  Docker hub link:
 ##  Build docker image: docker build --no-cache -f Dockerfile_1_0 -t denny/jenkins:1.0 --rm=true .
+##  Start jenkins: docker run -p 8080:8080 -p 50000:50000 denny/jenkins:1.0
 ##  Description: Manage via Jenkins GUI
 ##################################################
 # Base Docker image: https://hub.docker.com/_/jenkins/
@@ -15,6 +16,14 @@ LABEL maintainer "Denny<denny@dennyzhang.com>"
 # Install thinbackup plugin
 user root
 
+# Configure Jenkins java options
+# timezone: Asia/Shanghai, America/New_York, America/Los_Angeles
+# https://www.epochconverter.com/timezones
+ENV JENKINS_TIMEZONE "UTC"
+
+# Run groovy
+COPY timezone.groovy /usr/share/jenkins/ref/init.groovy.d/timezone.groovy
+
 # Disable ssh host key check
 ADD ssh_config /etc/ssh/ssh_config
 # Serverspec Check
@@ -23,17 +32,17 @@ ADD gitconfig /var/jenkins_home/.gitconfig
 
 # Install jenkins plugins
 RUN /usr/local/bin/install-plugins.sh structs && \
-    /usr/local/bin/install-plugins.sh credentials && \
-    /usr/local/bin/install-plugins.sh plain-credentials && \
-    /usr/local/bin/install-plugins.sh display-url-api && \
-    /usr/local/bin/install-plugins.sh workflow-step-api && \
-    /usr/local/bin/install-plugins.sh junit && \
     /usr/local/bin/install-plugins.sh thinBackup && \
     /usr/local/bin/install-plugins.sh slack && \
     /usr/local/bin/install-plugins.sh timestamper && \
     /usr/local/bin/install-plugins.sh git && \
     /usr/local/bin/install-plugins.sh dashboard-view && \
     /usr/local/bin/install-plugins.sh jobConfigHistory && \
+    /usr/local/bin/install-plugins.sh credentials && \
+    /usr/local/bin/install-plugins.sh plain-credentials && \
+    /usr/local/bin/install-plugins.sh display-url-api && \
+    /usr/local/bin/install-plugins.sh junit && \
+    /usr/local/bin/install-plugins.sh workflow-step-api && \
     /usr/local/bin/install-plugins.sh workflow-aggregator && \
 
 # Install serverspec
