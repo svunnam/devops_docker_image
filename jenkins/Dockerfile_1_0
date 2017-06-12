@@ -32,18 +32,17 @@ ADD gitconfig /var/jenkins_home/.gitconfig
 
 # Install jenkins plugins
 RUN /usr/local/bin/install-plugins.sh structs && \
-    /usr/local/bin/install-plugins.sh thinBackup && \
-    /usr/local/bin/install-plugins.sh slack && \
-    /usr/local/bin/install-plugins.sh timestamper && \
-    /usr/local/bin/install-plugins.sh git && \
-    /usr/local/bin/install-plugins.sh dashboard-view && \
-    /usr/local/bin/install-plugins.sh jobConfigHistory && \
-    /usr/local/bin/install-plugins.sh credentials && \
+    /usr/local/bin/install-plugins.sh workflow-aggregator:2.5 && \
+    /usr/local/bin/install-plugins.sh slack:2.2 && \
+    /usr/local/bin/install-plugins.sh dashboard-view:2.9.11 && \
+    /usr/local/bin/install-plugins.sh timestamper:1.8.8 && \
+    /usr/local/bin/install-plugins.sh git:3.3.0 && \
+    /usr/local/bin/install-plugins.sh thinBackup:1.9 && \
+    /usr/local/bin/install-plugins.sh jobConfigHistory:2.16 && \
+    /usr/local/bin/install-plugins.sh credentials:2.1.13 && \
     /usr/local/bin/install-plugins.sh plain-credentials && \
     /usr/local/bin/install-plugins.sh display-url-api && \
     /usr/local/bin/install-plugins.sh junit && \
-    /usr/local/bin/install-plugins.sh workflow-step-api && \
-    /usr/local/bin/install-plugins.sh workflow-aggregator && \
 
 # Install serverspec
     apt-get -y update && apt-get install -y --no-install-recommends ruby rake && \
