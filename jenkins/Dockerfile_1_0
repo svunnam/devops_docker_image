@@ -32,7 +32,26 @@ ADD gitconfig /var/jenkins_home/.gitconfig
 
 # Install jenkins plugins
 RUN /usr/local/bin/install-plugins.sh structs && \
+    # Pipeline
+    /usr/local/bin/install-plugins.sh pipeline-input-step:2.5 && \
+    /usr/local/bin/install-plugins.sh workflow-job:2.9 && \
+    /usr/local/bin/install-plugins.sh workflow-basic-steps:2.3 && \
+    /usr/local/bin/install-plugins.sh workflow-durable-task-step:2.8 && \
+    /usr/local/bin/install-plugins.sh workflow-api:2.8 && \
+    /usr/local/bin/install-plugins.sh workflow-cps:2.24 && \
+    /usr/local/bin/install-plugins.sh workflow-support:2.12 && \
+    /usr/local/bin/install-plugins.sh workflow-cps-global-lib:2.5 && \
+    /usr/local/bin/install-plugins.sh workflow-multibranch:2.9.2 && \
+    /usr/local/bin/install-plugins.sh pipeline-stage-view:2.4 && \
+    /usr/local/bin/install-plugins.sh workflow-scm-step:2.3 && \
+    /usr/local/bin/install-plugins.sh workflow-step-api:2.7 && \
+    /usr/local/bin/install-plugins.sh pipeline-model-definition:1.0 && \
+    /usr/local/bin/install-plugins.sh pipeline-stage-step:2.2 && \
+    /usr/local/bin/install-plugins.sh pipeline-build-step:2.4 && \
+    /usr/local/bin/install-plugins.sh pipeline-milestone-step:1.3 && \
+    /usr/local/bin/install-plugins.sh workflow-job:2.9 && \
     /usr/local/bin/install-plugins.sh workflow-aggregator:2.5 && \
+    ###############################################################
     /usr/local/bin/install-plugins.sh slack:2.2 && \
     /usr/local/bin/install-plugins.sh dashboard-view:2.9.11 && \
     /usr/local/bin/install-plugins.sh timestamper:1.8.8 && \
