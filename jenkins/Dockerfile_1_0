@@ -35,33 +35,33 @@ RUN /usr/local/bin/install-plugins.sh structs && \
     ###############################################################
     # Pipeline
     /usr/local/bin/install-plugins.sh bouncycastle-api:2.16.1 && \
+    /usr/local/bin/install-plugins.sh pipeline-model-definition:1.1.6 && \
     /usr/local/bin/install-plugins.sh workflow-job:2.11 && \
     /usr/local/bin/install-plugins.sh pipeline-graph-analysis:1.4 && \
     /usr/local/bin/install-plugins.sh pipeline-rest-api:2.8 && \
     /usr/local/bin/install-plugins.sh pipeline-stage-view:2.8 && \
     /usr/local/bin/install-plugins.sh pipeline-model-declarative-agent:1.1.1 && \
-    /usr/local/bin/install-plugins.sh pipeline-model-definition:1.1.5 && \
     /usr/local/bin/install-plugins.sh pipeline-milestone-step:1.3.1 && \
     /usr/local/bin/install-plugins.sh workflow-multibranch:2.15 && \
     /usr/local/bin/install-plugins.sh docker-workflow:1.11 && \
     /usr/local/bin/install-plugins.sh maven-plugin:2.16 && \
-    /usr/local/bin/install-plugins.sh pipeline-stage-tags-metadata:1.1.5 && \
+    /usr/local/bin/install-plugins.sh pipeline-stage-tags-metadata:1.1.6 && \
     /usr/local/bin/install-plugins.sh handlebars:1.1.1 && \
     /usr/local/bin/install-plugins.sh pipeline-stage-step:2.2 && \
-    /usr/local/bin/install-plugins.sh pipeline-model-extensions:1.1.5 && \
+    /usr/local/bin/install-plugins.sh pipeline-model-extensions:1.1.6 && \
     /usr/local/bin/install-plugins.sh pipeline-milestone-step:1.3.1 && \
     /usr/local/bin/install-plugins.sh workflow-cps-global-lib:2.8 && \
     /usr/local/bin/install-plugins.sh workflow-support:2.14 && \
-    /usr/local/bin/install-plugins.sh workflow-scm-step:2.4 && \
-    /usr/local/bin/install-plugins.sh pipeline-model-api:1.1.5 && \
+    /usr/local/bin/install-plugins.sh workflow-scm-step:2.5 && \
+    /usr/local/bin/install-plugins.sh pipeline-model-api:1.1.6 && \
     /usr/local/bin/install-plugins.sh pipeline-input-step:2.7 && \
     /usr/local/bin/install-plugins.sh pipeline-build-step:2.5 && \
     /usr/local/bin/install-plugins.sh workflow-step-api:2.11 && \
-    /usr/local/bin/install-plugins.sh docker-commons:1.6 && \
-    /usr/local/bin/install-plugins.sh workflow-durable-task-step:2.11 && \
-    /usr/local/bin/install-plugins.sh durable-task:1.13 && \
+    /usr/local/bin/install-plugins.sh docker-commons:1.7 && \
+    /usr/local/bin/install-plugins.sh workflow-durable-task-step:2.12 && \
+    /usr/local/bin/install-plugins.sh durable-task:1.14 && \
     /usr/local/bin/install-plugins.sh workflow-basic-steps:2.5 && \
-    /usr/local/bin/install-plugins.sh workflow-cps:2.34 && \
+    /usr/local/bin/install-plugins.sh workflow-cps:2.36 && \
     /usr/local/bin/install-plugins.sh workflow-api:2.17 && \
     /usr/local/bin/install-plugins.sh workflow-aggregator:2.5 && \
 
@@ -77,9 +77,9 @@ RUN /usr/local/bin/install-plugins.sh structs && \
     /usr/local/bin/install-plugins.sh build-timeout:1.18 && \
     /usr/local/bin/install-plugins.sh naginator:1.17.2 && \
     /usr/local/bin/install-plugins.sh credentials:2.1.13 && \
-    /usr/local/bin/install-plugins.sh plain-credentials && \
-    /usr/local/bin/install-plugins.sh display-url-api && \
-    /usr/local/bin/install-plugins.sh junit && \
+    /usr/local/bin/install-plugins.sh plain-credentials:1.4 && \
+    /usr/local/bin/install-plugins.sh display-url-api:2.0 && \
+    /usr/local/bin/install-plugins.sh junit:1.20 && \
 
 # Install serverspec
     apt-get -y update && apt-get install -y --no-install-recommends ruby rake && \
