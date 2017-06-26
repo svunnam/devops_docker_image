@@ -9,7 +9,7 @@
 ## Description :
 ## --
 ## Created : <2017-05-14>
-## Updated: Time-stamp: <2017-05-14 20:11:38>
+## Updated: Time-stamp: <2017-06-26 13:41:33>
 ##-------------------------------------------------------------------
 function setup_serverspec() {
     working_dir=${1?}
@@ -54,7 +54,9 @@ EOF
     fi
 }
 
-flag_file="$HOME/$JOB_NAME.flag"
+if [ -z "$flag_file" ]; then
+    flag_file="$HOME/$JOB_NAME.flag"
+fi
 
 function shell_exit() {
     errcode=$?
@@ -65,6 +67,8 @@ function shell_exit() {
     fi
     exit $errcode
 }
+
+trap shell_exit SIGHUP SIGINT SIGTERM 0
 
 [ -n "$working_dir" ] || working_dir="$HOME/$JOB_NAME"
 
