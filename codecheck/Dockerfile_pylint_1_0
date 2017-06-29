@@ -18,7 +18,7 @@ LABEL maintainer "Denny<denny@dennyzhang.com>"
 user root
 WORKDIR /
 
-ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v5/python/enforce_pylint_check/enforce_pylint.py \
+ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v6/python/enforce_pylint_check/enforce_pylint.py \
     /enforce_pylint.py
 
 

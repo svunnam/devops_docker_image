@@ -24,7 +24,7 @@ MAINTAINER DennyZhang.com <http://dennyzhang.com>
 
 USER root
 
-ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v5/python/selenium_load_page/selenium_load_page.py \
+ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v6/python/selenium_load_page/selenium_load_page.py \
     /home/seluser/selenium_load_page.py
 
 # install selenium python sdk
