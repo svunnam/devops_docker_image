@@ -21,7 +21,7 @@ WORKDIR /
 
 ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v6/python/enforce_rubocopcheck/enforce_rubocopcheck.py /enforce_rubocopcheck.py
 
-RUN chmod o+x /*.py && apk add --update python \
+RUN chmod o+x /*.py && apk add --update python && \
     gem install rubocop rubocop-rspec && \
 
 # Verify status
