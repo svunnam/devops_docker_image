@@ -1,11 +1,11 @@
 ########## How To Use Docker Image ###############
 ##
-##  Image Name: denny/pylint:1.0
-##  Git link: https://github.com/DennyZhang/devops_docker_image/blob/tag_v5/codecheck/Dockerfile_pylint_1_0
+##  Image Name: denny/pylintcheck:1.0
+##  Git link: https://github.com/DennyZhang/devops_docker_image/blob/tag_v6/codecheck/Dockerfile_pylint_1_0
 ##  Docker hub link:
-##  Build docker image: docker build --no-cache -f Dockerfile_pylint_1_0 -t denny/pylint:1.0 --rm=true .
+##  Build docker image: docker build --no-cache -f Dockerfile_pylint_1_0 -t denny/pylintcheck:1.0 --rm=true .
 ##  How to use:
-##      docker run -t -d --privileged -v ${code_dir}:/code --name pylint --entrypoint=/bin/bash denny/pylint:1.0
+##      docker run -t -d --privileged -v ${code_dir}:/code --name pylint --entrypoint=/bin/bash denny/pylintcheck:1.0
 ##      docker exec -it pylint python /enforce_pylint.py --code_dir /code --check_ignore_file /.pylint_ignore
 ##  Description: Enforce pylint check for python scripts
 ##################################################
