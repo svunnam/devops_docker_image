@@ -23,4 +23,4 @@ ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v6/python/enf
 
 RUN chmod o+x /*.py && apk add --update python
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/sh"]

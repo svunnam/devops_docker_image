@@ -42,4 +42,4 @@ RUN chmod o+x /*.py && \
    python --version | grep "3.5.1" && \
    pip --version | grep "9.0.1"
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/sh"]
