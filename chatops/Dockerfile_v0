@@ -38,3 +38,6 @@ RUN rm -rf /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python && \
    pip show Flask | grep "0.11.1" && \
    pip show paramiko | grep "2.1.2" && \
    pip show slackclient | grep "1.0.5"
+
+HEALTHCHECK --interval=5m --timeout=3s \
+            CMD curl -f http://localhost:8081/chathelp || exit 1

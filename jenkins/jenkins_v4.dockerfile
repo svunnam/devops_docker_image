@@ -12,6 +12,6 @@ FROM denny/jenkins:v3
 ARG jenkins_port="18080"
 
 HEALTHCHECK --interval=5m --timeout=3s \
-            CMD curl -f http://localhost/:18080 || exit 1   
+            CMD curl -f http://localhost/:18080 || exit 1
 CMD ["/bin/bash"]
 ########################################################################################
