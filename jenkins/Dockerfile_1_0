@@ -108,3 +108,6 @@ RUN ruby --version && rake --version && gem list server && gem --version && \
     echo "Check workflow-job" && cksum /usr/share/jenkins/ref/plugins/workflow-job.jpi | grep 4045198933 && \
     echo "Check workflow-scm-step" && cksum /usr/share/jenkins/ref/plugins/workflow-scm-step.jpi | grep 2369925214 && \
     which vim
+
+HEALTHCHECK --interval=5m --timeout=3s \
+            CMD curl -I http://localhost:8080 | grep "HTTP/1.1 403 Forbidden" || exit 1
