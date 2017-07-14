@@ -12,6 +12,9 @@ FROM php:5-apache
 MAINTAINER DennyZhang.com <http://dennyzhang.com>
 
 RUN apt-get -y update && \
-    apt-get install -y --no-install-recommends lsof vim curl
+    apt-get install -y --no-install-recommends lsof vim curl && \
+    apt-get install -y --no-install-recommends apache2.2-common && \
 
+# Verify image
+    which a2enmod && apachectl -v | grep "2.4"
 ########################################################################################
