@@ -28,7 +28,7 @@ ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v6/python/sel
     /home/seluser/selenium_load_page.py
 
 # install selenium python sdk
-RUN apt-get -y update && apt-get install -y --no-install-recommends curl && \
+RUN apt-get -y update && apt-get install -y --no-install-recommends curl inetutils-ping && \
     apt-get install -y --no-install-recommends python python-pip && \
     chmod 777 /home/seluser/selenium_load_page.py && \
 
@@ -39,6 +39,7 @@ RUN apt-get -y update && apt-get install -y --no-install-recommends curl && \
     apt-get -y remove && apt-get -y autoremove && rm -rf /var/cache/apk/* && \
 
 # Verify docker image
+    which curl && which ping && \
     python --version 2>&1 | grep 2.7.12 && \
     pip --version | grep 8.1.1 && \
     pip list | grep selenium.*3.4.0
