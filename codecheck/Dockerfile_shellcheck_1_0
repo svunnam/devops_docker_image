@@ -8,6 +8,8 @@
 ##      docker run -t -d --privileged -v ${code_dir}:/code --name shellcheck --entrypoint=/bin/bash denny/shellcheck:1.0
 ##      docker exec -it shellcheck python /enforce_shellcheck.py --code_dir /code --check_ignore_file /.shellcheck_ignore
 ##  Description: http://www.dennyzhang.com/shellcheck/
+##
+##  Read more: http://www.dennyzhang.com/docker_code_check/
 ##################################################
 # Base Docker image: https://hub.docker.com/r/koalaman/shellcheck/tags/
 

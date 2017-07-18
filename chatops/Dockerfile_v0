@@ -4,7 +4,9 @@
 ##  Git link: 
 ##  How To Build Docker Image: docker build --no-cache -t denny/chatops:v0 -f Dockerfile_v0 --rm=true .
 ##  Docker hub link:
-##  Description: 
+##  Description:
+##
+##  Read more: http://www.dennyzhang.com/chatqueryhost/
 ##################################################
 
 # Base Docker image: https://hub.docker.com/r/muccg/pylint/

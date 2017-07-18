@@ -15,6 +15,7 @@
 ##  Run seleinum test
 ##    docker exec selenium python /home/seluser/selenium_load_page.py --page_url http://www.dennyzhang.com
 ##
+##  Read more: http://www.dennyzhang.com/selenium_docker/
 ##################################################
 
 # Base image: https://hub.docker.com/r/selenium/standalone-chrome/

@@ -5,6 +5,8 @@
 ##  Download docker image: docker pull denny/ss:v1
 ##  Build Image From Dockerfile. docker build -f ss_v1.dockerfile -t denny/ss:v1 --rm=true .
 ##
+##  Read more: http://www.dennyzhang.com/free_vpn/
+##
 ##  Start container:
 ##   docker run -t -d --privileged -h ss --name my-ss -p 6187:6187 denny/ss:v1 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 ##
