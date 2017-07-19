@@ -40,4 +40,7 @@ RUN apt-get -y update && \
    rm -rf /usr/share/doc
 
 CMD ["ssserver", "-c", "/etc/shadowsocks.json"]
+
+HEALTHCHECK --interval=2m --timeout=3s \
+            CMD lsof -i tcp:6187 | grep LISTEN || exit 1
 ########################################################################################
