@@ -8,11 +8,10 @@
 ##  Read more: http://www.dennyzhang.com/free_vpn/
 ##
 ##  Start Container:
-##   docker run -t -d --privileged -h ss --name my-ss -p 6187:6187 denny/ss:v2
+##   docker-compose up -d
 ##
-##  Start Container With Customization
-##   docker run -t -d --privileged -h ss --name my-ss -p 6187:6187 denny/ss:v2
-##
+##  Customization credential:
+##   Update shadowsocks.json, and restart docker-compose.
 ##   Default password: DamnGFW1234, default server port: 6187
 ##################################################
 
