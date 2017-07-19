@@ -7,14 +7,13 @@
 ##
 ##  Read more: http://www.dennyzhang.com/free_vpn/
 ##
-##  Start container:
+##  Start Container:
+##   docker run -t -d --privileged -h ss --name my-ss -p 6187:6187 denny/ss:v2
+##
+##  Start Container With Customization
 ##   docker run -t -d --privileged -h ss --name my-ss -p 6187:6187 denny/ss:v2
 ##
 ##   Default password: DamnGFW1234, default server port: 6187
-##
-##   docker exec -it my-ss bash
-##     # Change password
-##     sed -i "s/DamnGFW/DamnFirewall123/g" /etc/shadowsocks.json
 ##################################################
 
 FROM ubuntu:14.04
