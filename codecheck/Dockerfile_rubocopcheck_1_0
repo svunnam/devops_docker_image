@@ -9,7 +9,7 @@
 ##      docker exec -it rubocopcheck python /enforce_rubocopcheck.py --code_dir /code --check_ignore_folder /.rubocopcheck_ignore
 ##  Description: Enforce rubocop check for ruby scripts
 ##
-##  Read more: http://www.dennyzhang.com/docker_code_check/
+##  Read more: https://www.dennyzhang.com/docker_code_check/
 ##################################################
 # Base Docker image: https://github.com/docker-library/ruby/blob/21bc2bf9f98aa749f1bd85d190cf0991dac87fc9/2.4/alpine/Dockerfile
 

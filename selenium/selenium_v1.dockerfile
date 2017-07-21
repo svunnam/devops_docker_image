@@ -13,9 +13,9 @@
 ##    docker run -d -p 4444:4444 -v /tmp/screenshot:/tmp/screenshot -h selenium --name selenium denny/selenium:v1
 ##
 ##  Run seleinum test
-##    docker exec selenium python /home/seluser/selenium_load_page.py --page_url http://www.dennyzhang.com
+##    docker exec selenium python /home/seluser/selenium_load_page.py --page_url https://www.dennyzhang.com
 ##
-##  Read more: http://www.dennyzhang.com/selenium_docker/
+##  Read more: https://www.dennyzhang.com/selenium_docker/
 ##################################################
 
 # Base image: https://hub.docker.com/r/selenium/standalone-chrome/

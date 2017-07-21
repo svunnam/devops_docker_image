@@ -60,7 +60,7 @@ RUN /usr/local/bin/install-plugins.sh structs:1.8 && \
     /usr/local/bin/install-plugins.sh workflow-api:2.17 && \
     /usr/local/bin/install-plugins.sh workflow-aggregator:2.5 && \
     ###############################################################
-    # http://www.dennyzhang.com/jenkins_benefits
+    # https://www.dennyzhang.com/jenkins_benefits
     /usr/local/bin/install-plugins.sh slack:2.2 && \
     /usr/local/bin/install-plugins.sh dashboard-view:2.9.11 && \
     /usr/local/bin/install-plugins.sh timestamper:1.8.8 && \

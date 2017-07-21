@@ -6,7 +6,7 @@
 ##  Docker hub link:
 ##  Description:
 ##
-##  Read more: http://www.dennyzhang.com/chatqueryhost/
+##  Read more: https://www.dennyzhang.com/chatqueryhost/
 ##################################################
 
 # Base Docker image: https://hub.docker.com/r/muccg/pylint/

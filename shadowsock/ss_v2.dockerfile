@@ -5,7 +5,7 @@
 ##  Download docker image: docker pull denny/ss:v2
 ##  Build Image From Dockerfile. docker build -f ss_v2.dockerfile -t denny/ss:v2 --rm=true .
 ##
-##  Read more: http://www.dennyzhang.com/free_vpn/
+##  Read more: https://www.dennyzhang.com/free_vpn/
 ##
 ##  Start Container:
 ##   docker-compose up -d
