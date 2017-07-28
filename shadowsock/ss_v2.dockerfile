@@ -5,6 +5,7 @@
 ##  Download docker image: docker pull denny/ss:v2
 ##  Build Image From Dockerfile. docker build -f ss_v2.dockerfile -t denny/ss:v2 --rm=true .
 ##
+##  Image link: https://github.com/DennyZhang/devops_docker_image/blob/tag_v6/shadowsock
 ##  Read more: https://www.dennyzhang.com/free_vpn/
 ##
 ##  Start Container:
