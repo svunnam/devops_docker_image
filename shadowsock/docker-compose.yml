@@ -9,3 +9,8 @@ services:
     restart: always
     volumes:
       - $PWD/shadowsocks.json:/etc/shadowsocks.json:rw
+    networks:
+      - network_vpn
+
+networks:
+  network_vpn:
