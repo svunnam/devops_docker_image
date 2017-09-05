@@ -1,7 +1,7 @@
 ########## How To Use Docker Image ###############
 ##
 ##  Image Name: denny/pylintcheck:1.0
-##  Git link: https://github.com/DennyZhang/devops_docker_image/blob/tag_v6/codecheck/Dockerfile_pylint_1_0
+##  Git link: https://github.com/DennyZhang/devops_docker_image/blob/tag_v7/codecheck/Dockerfile_pylint_1_0
 ##  Docker hub link:
 ##  Build docker image: docker build --no-cache -f Dockerfile_pylint_1_0 -t denny/pylintcheck:1.0 --rm=true .
 ##  How to use:
@@ -10,18 +10,18 @@
 ##
 ##  Description: Enforce pylint check for python scripts
 ##
-##  Read more: https://www.dennyzhang.com/docker_code_check/
+##  Read more: https://www.dennyzhang.com/docker_code_check
 ##################################################
 # Base Docker image: https://hub.docker.com/r/muccg/pylint/
 
 FROM codacy/codacy-pylint:1.0.121
 
-LABEL maintainer "Denny<denny@dennyzhang.com>"
+LABEL maintainer "Denny<contact@dennyzhang.com>"
 
 user root
 WORKDIR /
 
-ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v6/python/enforce_pylint_check/enforce_pylint.py \
+ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v7/python/enforce_pylint_check/enforce_pylint.py \
     /enforce_pylint.py
 
 

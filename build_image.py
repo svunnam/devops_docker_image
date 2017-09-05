@@ -2,11 +2,11 @@
 #!/usr/bin/python
 ##-------------------------------------------------------------------
 ## File : build_image.py
-## Author : Denny <denny@dennyzhang.com>
+## Author : Denny <contact@dennyzhang.com>
 ## Description :
 ## --
 ## Created : <2016-04-24>
-## Updated: Time-stamp: <2016-11-29 21:08:15>
+## Updated: Time-stamp: <2017-09-04 18:52:04>
 ##-------------------------------------------------------------------
 import argparse, os
 import subprocess, sys

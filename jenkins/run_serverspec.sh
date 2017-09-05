@@ -5,11 +5,11 @@
 ##   https://raw.githubusercontent.com/DennyZhang/devops_public/master/LICENSE
 ##
 ## File : run_serverspec.sh
-## Author : Denny <denny@dennyzhang.com>
+## Author : Denny <contact@dennyzhang.com>
 ## Description :
 ## --
 ## Created : <2017-05-14>
-## Updated: Time-stamp: <2017-06-26 13:41:33>
+## Updated: Time-stamp: <2017-09-04 18:52:18>
 ##-------------------------------------------------------------------
 function setup_serverspec() {
     working_dir=${1?}

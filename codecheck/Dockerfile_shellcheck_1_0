@@ -7,21 +7,21 @@
 ##  How to use
 ##      docker run -t -d --privileged -v ${code_dir}:/code --name shellcheck --entrypoint=/bin/bash denny/shellcheck:1.0
 ##      docker exec -it shellcheck python /enforce_shellcheck.py --code_dir /code --check_ignore_file /.shellcheck_ignore
-##  Description: https://www.dennyzhang.com/shellcheck/
+##  Description: https://www.dennyzhang.com/shellcheck
 ##
-##  Read more: https://www.dennyzhang.com/docker_code_check/
+##  Read more: https://www.dennyzhang.com/docker_code_check
 ##################################################
 # Base Docker image: https://hub.docker.com/r/koalaman/shellcheck/tags/
 
 FROM koalaman/shellcheck:v0.4.6
 
-LABEL maintainer "Denny<denny@dennyzhang.com>"
+LABEL maintainer "Denny<contact@dennyzhang.com>"
 
 user root
 
 WORKDIR /
 
-ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v6/python/enforce_shellcheck/enforce_shellcheck.py /enforce_shellcheck.py
+ADD https://raw.githubusercontent.com/DennyZhang/devops_public/tag_v7/python/enforce_shellcheck/enforce_shellcheck.py /enforce_shellcheck.py
 
 RUN chmod o+x /*.py && apk add --update python
 

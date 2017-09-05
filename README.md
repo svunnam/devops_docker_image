@@ -7,7 +7,7 @@
 ##         docker run -t -i --privileged -h mytest --name my-test denny/mytest:v1 /bin/bash
 ##
 ##  Commit local image:
-##    docker commit -m "Initial version" -a "Denny Zhang<denny@dennyzhang.com>" e955748a2634 denny/osc:v1
+##    docker commit -m "Initial version" -a "Denny Zhang<contact@dennyzhang.com>" e955748a2634 denny/osc:v1
 ##    # Get docker user credential first
 ##    docker login
 ##    docker push denny/mytest:v1
@@ -27,3 +27,5 @@ git pull
 
 chef-solo --config /root/client.rb -j /root/client.json
 ```
+
+Discuss with Denny in [LinkedIn](https://www.linkedin.com/in/dennyzhang001) or [Blog](https://www.dennyzhang.com).
